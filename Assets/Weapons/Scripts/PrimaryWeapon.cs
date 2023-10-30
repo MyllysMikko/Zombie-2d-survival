@@ -109,13 +109,18 @@ public class PrimaryWeapon : MonoBehaviour
         Vector3 direction = (mousePosition - transform.position).normalized;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
+        GameObject trail = Instantiate(bulletTrail, transform.position, Quaternion.identity);
 
         if (hit.collider != null)
         {
             Debug.Log("hit");
 
-            GameObject trail = Instantiate(bulletTrail, transform.position, Quaternion.identity);
-            trail.GetComponent<BulletTrail>().SetTarget(mousePosition);
+
+            trail.GetComponent<BulletTrail>().SetTarget(hit.point);
+        }
+        else
+        {
+            trail.GetComponent<BulletTrail>().SetTarget(transform.position + direction * 10);
         }
     }
 
