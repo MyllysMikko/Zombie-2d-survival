@@ -19,6 +19,7 @@ public class PrimaryWeapon : MonoBehaviour
     [SerializeField] int currentClip;
     [SerializeField] int maxReserve;
     [SerializeField] int currentReserve;
+    [SerializeField] float reloadTime;
 
 
     // Start is called before the first frame update
@@ -55,8 +56,35 @@ public class PrimaryWeapon : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            if (!reloading && currentClip < maxClip && currentReserve > 0)
+            {
+                StartCoroutine(Reload());
+            }
         }
 
+    }
+
+    IEnumerator Reload()
+    {
+        reloading = true;
+        yield return new WaitForSeconds(reloadTime);
+
+        int ammountToReload = maxClip - currentClip;
+
+        if (currentReserve - ammountToReload < 0)
+        {
+            currentClip += currentReserve;
+            currentReserve = 0;
+        }
+        else
+        {
+            currentClip = maxClip;
+            currentReserve -= ammountToReload;
+        }
+
+
+
+        reloading = false;
     }
 
     public void Shoot()

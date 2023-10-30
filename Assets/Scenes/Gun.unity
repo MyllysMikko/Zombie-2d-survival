@@ -435,16 +435,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a70cbe6cf2b5748838973eb85180af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reloading: 0
   shootDelay: 0.5
   nextShotAt: 0
   damage: 0
   shotLenght: 0
   bulletTrail: {fileID: 8579590539065061908, guid: d7792e23da298ae4e9b7426cb0a9150f, type: 3}
   gunType: 1
-  maxClip: 0
+  maxClip: 10
   currentClip: 10
-  maxReserve: 0
+  maxReserve: 10
   currentReserve: 0
+  reloadTime: 1
 --- !u!1 &1918422580
 GameObject:
   m_ObjectHideFlags: 0
