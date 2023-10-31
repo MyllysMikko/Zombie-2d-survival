@@ -104,37 +104,28 @@ public class Weapon : MonoBehaviour
 
     void FireBullet()
     {
-        //Vector3 direction = GetDirection();
-        //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //mousePosition.z = 0;
-        //Vector3 direction = (mousePosition - transform.position).normalized;
-
-
-        //Vector3 spread = Vector3.zero;
-        //spread.x = Random.Range(-bulletSpread, bulletSpread);
-        //spread.y = Random.Range(-bulletSpread, bulletSpread);
-        //Vector3 bulletdir = transform.right + spread;
-
-        Vector3 forward = transform.right;
 
         float randomAngle = Random.Range(-bulletSpread, bulletSpread);
         Quaternion deviation = Quaternion.AngleAxis(randomAngle, Vector3.forward);
 
         Vector3 finalDirection = deviation * transform.right;
 
-
-
-
-
         RaycastHit2D hit = Physics2D.Raycast(transform.position, finalDirection);
         GameObject trail = Instantiate(bulletTrail, transform.position, Quaternion.identity);
 
         if (hit.collider != null)
         {
-            Debug.Log("hit");
-
-
             trail.GetComponent<BulletTrail>().SetTarget(hit.point);
+
+            EnemyHPController enemy= hit.collider.GetComponent<EnemyHPController>();
+
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+
+                Debug.Log("Hit!");
+            }
+
         }
         else
         {
