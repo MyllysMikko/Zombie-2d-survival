@@ -7,9 +7,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] bool reloading;
 
     [Header("Gun attributes")]
+    [SerializeField] int damage;
+    [SerializeField] float bulletSpread;
     [SerializeField] float shootDelay;
     [SerializeField] float nextShotAt;
-    [SerializeField] int damage;
     [SerializeField] float shotLenght;
     [SerializeField] GameObject bulletTrail;
     [SerializeField] GunType gunType;
@@ -104,13 +105,28 @@ public class Weapon : MonoBehaviour
     void FireBullet()
     {
         //Vector3 direction = GetDirection();
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-        Vector3 direction = (mousePosition - transform.position).normalized;
+        //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //mousePosition.z = 0;
+        //Vector3 direction = (mousePosition - transform.position).normalized;
+
+
+        //Vector3 spread = Vector3.zero;
+        //spread.x = Random.Range(-bulletSpread, bulletSpread);
+        //spread.y = Random.Range(-bulletSpread, bulletSpread);
+        //Vector3 bulletdir = transform.right + spread;
+
+        Vector3 forward = transform.right;
+
+        float randomAngle = Random.Range(-bulletSpread, bulletSpread);
+        Quaternion deviation = Quaternion.AngleAxis(randomAngle, Vector3.forward);
+
+        Vector3 finalDirection = deviation * transform.right;
 
 
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
+
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, finalDirection);
         GameObject trail = Instantiate(bulletTrail, transform.position, Quaternion.identity);
 
         if (hit.collider != null)
@@ -122,7 +138,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            trail.GetComponent<BulletTrail>().SetTarget(transform.position + direction * 10);
+            trail.GetComponent<BulletTrail>().SetTarget(transform.position + finalDirection * 10);
         }
     }
 

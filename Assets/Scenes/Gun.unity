@@ -522,17 +522,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloading: 0
+  damage: 0
+  bulletSpread: 1
   shootDelay: 0.1
   nextShotAt: 0
-  damage: 0
   shotLenght: 0
   bulletTrail: {fileID: 8579590539065061908, guid: d7792e23da298ae4e9b7426cb0a9150f, type: 3}
   gunType: 1
   maxClip: 100
   currentClip: 10
-  maxReserve: 200
+  maxReserve: 1000
   currentReserve: 0
-  reloadTime: 1
+  reloadTime: 0
 --- !u!114 &1683376344
 MonoBehaviour:
   m_ObjectHideFlags: 0
