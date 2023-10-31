@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrimaryWeapon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     [SerializeField] bool reloading;
 
@@ -107,6 +107,8 @@ public class PrimaryWeapon : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         Vector3 direction = (mousePosition - transform.position).normalized;
+
+
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
         GameObject trail = Instantiate(bulletTrail, transform.position, Quaternion.identity);
