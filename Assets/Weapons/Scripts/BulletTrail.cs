@@ -6,7 +6,7 @@ public class BulletTrail : MonoBehaviour
 {
 
     Vector3 target;
-    float speed;
+    float speed = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +27,6 @@ public class BulletTrail : MonoBehaviour
     {
         this.target = target;
 
-        float distance = Vector3.Distance(transform.position, target);
 
-        speed = distance / 0.1f;
     }
 }

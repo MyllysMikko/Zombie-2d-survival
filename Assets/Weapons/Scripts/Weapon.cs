@@ -83,8 +83,6 @@ public class Weapon : MonoBehaviour
             currentReserve -= ammountToReload;
         }
 
-
-
         reloading = false;
     }
 
@@ -129,7 +127,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            trail.GetComponent<BulletTrail>().SetTarget(transform.position + finalDirection * 10);
+            trail.GetComponent<BulletTrail>().SetTarget(transform.position + finalDirection * 20);
         }
     }
 
