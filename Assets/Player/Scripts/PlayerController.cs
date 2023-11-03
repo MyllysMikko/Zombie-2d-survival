@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] LookAtMouse mouse;
+
     public float moveSpeed = 5f;
     public float currentSpeed = 0;
     float moveX;
@@ -16,10 +18,21 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveDirection;
     private Vector2 lastRecorderDir;
 
+    [Header("Health")]
+    [SerializeField] int maxHP;
+    [SerializeField] int currentHP;
+    [SerializeField] PlayerState playerState;
+
 
     public CharacterController controller;
 
-    
+    private void Start()
+    {
+        currentHP = maxHP;
+        playerState = PlayerState.Alive;
+        mouse.turn = true;
+    }
+
     private void Update()
     {
         ProcessInputs();
@@ -27,7 +40,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();   
+        if (playerState == PlayerState.Alive)
+        {
+            Move();
+        }
     }
 
     public void Awake()
@@ -75,6 +91,24 @@ public class PlayerController : MonoBehaviour
 
             controller.Move(lastRecorderDir * currentSpeed * Time.deltaTime);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHP -= damage;
+        if (currentHP <= 0)
+        {
+            playerState = PlayerState.Dead;
+            mouse.turn = false;
+        }
+    }
+
+
+    enum PlayerState
+    {
+        Alive,
+        Dead,
+        Paused
     }
 
 }

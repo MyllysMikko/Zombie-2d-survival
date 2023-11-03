@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletTrail : MonoBehaviour
 {
 
-    Vector3 target;
+    [SerializeField] Vector3 target;
     float speed = 100;
 
     // Start is called before the first frame update
