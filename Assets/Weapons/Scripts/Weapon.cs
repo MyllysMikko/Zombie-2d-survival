@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] bool reloading;
+    public bool reloading;
 
     [Header("Gun attributes")]
     [SerializeField] int damage;
