@@ -13,11 +13,11 @@ public class PlayerController : MonoBehaviour
     public float acceleration = 2f;
     public float deceleration = 2f;
 
-    public Vector2 moveDirection;
-    private Vector2 lastRecorderDir;
+    public Vector3 moveDirection;
+    private Vector3 lastRecorderDir;
 
 
-    public CharacterController controller;
+    [SerializeField] Rigidbody2D rb;
 
     
     private void Update()
@@ -40,11 +40,8 @@ public class PlayerController : MonoBehaviour
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
 
-
-
         moveDirection = new Vector2(moveX, moveY).normalized;
 
-        
     }
 
     void Move()
@@ -60,7 +57,8 @@ public class PlayerController : MonoBehaviour
             {
                 currentSpeed = moveSpeed;
             }
-            controller.Move(direction * currentSpeed * Time.deltaTime);
+            rb.MovePosition(transform.position + direction * currentSpeed * Time.deltaTime);
+
             lastRecorderDir = direction;
         }
 
@@ -72,8 +70,7 @@ public class PlayerController : MonoBehaviour
             {
                 currentSpeed = 0;
             }
-
-            controller.Move(lastRecorderDir * currentSpeed * Time.deltaTime);
+            rb.MovePosition(transform.position + lastRecorderDir * currentSpeed * Time.deltaTime);
         }
     }
 
