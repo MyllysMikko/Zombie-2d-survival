@@ -9,6 +9,8 @@ public class EnemyHPController : MonoBehaviour
     [SerializeField] int hp;
     public GameObject CoinModel;
 
+    public EventHandler Died;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,10 @@ public class EnemyHPController : MonoBehaviour
         
     }
 
+    public void SetHP(int hp)
+    {
+        this.hp = hp;
+    }
 
 
     public void TakeDamage(int damage)
@@ -37,14 +43,19 @@ public class EnemyHPController : MonoBehaviour
 
     public void Die()
     {
+        Died.Invoke(this, EventArgs.Empty);
         gameObject.SetActive(false);
         DropCoin();
     }
     private void DropCoin()
     {
-        Vector2 position = transform.position;
-        GameObject coin = Instantiate(CoinModel, position + new Vector2(0.0f, 1.0f),Quaternion.identity);
-        coin.SetActive(true);
-        Destroy(coin,5f);
+        if (CoinModel != null)
+        {
+            Vector2 position = transform.position;
+            GameObject coin = Instantiate(CoinModel, position + new Vector2(0.0f, 1.0f), Quaternion.identity);
+            coin.SetActive(true);
+            Destroy(coin, 5f);
+        }
+
     }
 }

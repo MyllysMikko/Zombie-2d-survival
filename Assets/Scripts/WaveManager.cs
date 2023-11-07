@@ -10,6 +10,10 @@ public class WaveManager : MonoBehaviour
     [SerializeField] List<GameObject> zombies = new List<GameObject>();
     [SerializeField] Transform[] spawnPoints;
 
+    [SerializeField] bool ongoingWave;
+    [SerializeField] int zombieAmmount;
+    [SerializeField] int zombiesKilled;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +25,16 @@ public class WaveManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            StartWave();
+        }
+    }
+
+    void StartWave()
+    {
+        zombieAmmount = 10 * waveNumber;
+        zombiesKilled = 0;
+        for (int i = 0; i < zombieAmmount; i++)
+        {
             SpawnEnemy();
         }
     }
@@ -28,7 +42,8 @@ public class WaveManager : MonoBehaviour
     void SpawnEnemy()
     {
         bool foundInactive = false;
-        Vector3 spawnPosition = spawnPoints[0].position;
+
+        Vector3 spawnPosition = GetSpawnpoint();
 
         foreach(GameObject zombie in zombies)
         {
@@ -38,6 +53,8 @@ public class WaveManager : MonoBehaviour
                 zombie.transform.position = spawnPosition;
 
                 //TODO aseta hp!
+                EnemyHPController enemyHPController = zombie.GetComponent<EnemyHPController>();
+                enemyHPController.SetHP(10);
 
                 foundInactive = true;
                 break;
@@ -47,7 +64,20 @@ public class WaveManager : MonoBehaviour
         if (!foundInactive)
         {
             GameObject zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
+            EnemyHPController enemyHPController = zombie.GetComponent<EnemyHPController>();
+            enemyHPController.SetHP(10);
             zombies.Add(zombie);
         }
+    }
+
+    Vector3 GetSpawnpoint()
+    {
+        int spawnIndex = Random.Range(0, spawnPoints.Length);
+        Vector3 spawnPosition = spawnPoints[spawnIndex].position;
+        spawnPosition.y += Random.Range(-3, 3);
+        spawnPosition.x += Random.Range(-3, 3);
+
+
+        return spawnPosition;
     }
 }
