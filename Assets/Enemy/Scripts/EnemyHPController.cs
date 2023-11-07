@@ -47,6 +47,8 @@ public class EnemyHPController : MonoBehaviour
         gameObject.SetActive(false);
         DropCoin();
     }
+
+
     private void DropCoin()
     {
         if (CoinModel != null)

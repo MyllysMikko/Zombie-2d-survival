@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,8 +30,11 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+
     void StartWave()
     {
+        waveNumber++;
+        ongoingWave = true;
         zombieAmmount = 10 * waveNumber;
         zombiesKilled = 0;
         for (int i = 0; i < zombieAmmount; i++)
@@ -39,6 +43,9 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    // Uudelleen käytetään kuolleita zombeja.
+    // Jos on saatavilla kuollut zombi (Inactive). Asetetaan tälle uusi hp ja viedään spawni pisteelle
+    // Muuten luodaan kokonaan uusi
     void SpawnEnemy()
     {
         bool foundInactive = false;
@@ -66,16 +73,27 @@ public class WaveManager : MonoBehaviour
             GameObject zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
             EnemyHPController enemyHPController = zombie.GetComponent<EnemyHPController>();
             enemyHPController.SetHP(10);
+            enemyHPController.Died += OnZombieDead;
             zombies.Add(zombie);
+        }
+    }
+
+    void OnZombieDead(System.Object sender, EventArgs e)
+    {
+        zombiesKilled++;
+        if (zombiesKilled == zombieAmmount)
+        {
+            Debug.Log("Wave over!");
+            ongoingWave = false;
         }
     }
 
     Vector3 GetSpawnpoint()
     {
-        int spawnIndex = Random.Range(0, spawnPoints.Length);
+        int spawnIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
         Vector3 spawnPosition = spawnPoints[spawnIndex].position;
-        spawnPosition.y += Random.Range(-3, 3);
-        spawnPosition.x += Random.Range(-3, 3);
+        spawnPosition.y += UnityEngine.Random.Range(-3, 3);
+        spawnPosition.x += UnityEngine.Random.Range(-3, 3);
 
 
         return spawnPosition;
