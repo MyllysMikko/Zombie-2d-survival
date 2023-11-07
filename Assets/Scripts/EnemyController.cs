@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float turnSpeed;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class EnemyController : MonoBehaviour
     {
         TurnTowardPlayer();
         MoveForward();
+        
 
     }
 
