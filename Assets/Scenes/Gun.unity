@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloading: 0
-  damage: 1
+  damage: 2
   bulletSpread: 1
   shootDelay: 0.1
   nextShotAt: 0
@@ -865,15 +865,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4571828e69bbf349a84a6fd98ae59f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveNumber: 1
   zombiePrefab: {fileID: 8862155136193008393, guid: cf6c45acb155cd34690686236e66cda8, type: 3}
   zombies: []
   spawnPoints:
   - {fileID: 111866965}
   - {fileID: 584040889}
+  waveNumber: 0
+  timeBetweenWaves: 1
   ongoingWave: 0
   zombieAmmount: 0
   zombiesKilled: 0
+  wavesForIncrease: 1
+  HPIncrease: 10
 --- !u!4 &1658808639
 Transform:
   m_ObjectHideFlags: 0

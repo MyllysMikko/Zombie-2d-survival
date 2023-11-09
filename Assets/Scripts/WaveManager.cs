@@ -6,19 +6,24 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
 
-    [SerializeField] int waveNumber;
     [SerializeField] GameObject zombiePrefab;
     [SerializeField] List<GameObject> zombies = new List<GameObject>();
     [SerializeField] Transform[] spawnPoints;
 
+    [SerializeField] int waveNumber;
+    [SerializeField] float timeBetweenWaves;
     [SerializeField] bool ongoingWave;
     [SerializeField] int zombieAmmount;
     [SerializeField] int zombiesKilled;
 
+    [Header("Stat increase")]
+    [SerializeField] int wavesForIncrease;
+    [SerializeField] int HPIncrease;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -28,8 +33,15 @@ public class WaveManager : MonoBehaviour
         {
             StartWave();
         }
+
+
     }
 
+    IEnumerator StartNextWave()
+    {
+        yield return new WaitForSeconds(timeBetweenWaves);
+        StartWave();
+    }
 
     void StartWave()
     {
@@ -59,9 +71,8 @@ public class WaveManager : MonoBehaviour
                 zombie.SetActive(true);
                 zombie.transform.position = spawnPosition;
 
-                //TODO aseta hp!
                 EnemyHPController enemyHPController = zombie.GetComponent<EnemyHPController>();
-                enemyHPController.SetHP(10);
+                SetZombieStats(enemyHPController);
 
                 foundInactive = true;
                 break;
@@ -72,10 +83,18 @@ public class WaveManager : MonoBehaviour
         {
             GameObject zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
             EnemyHPController enemyHPController = zombie.GetComponent<EnemyHPController>();
-            enemyHPController.SetHP(10);
+            SetZombieStats(enemyHPController);
             enemyHPController.Died += OnZombieDead;
             zombies.Add(zombie);
         }
+    }
+
+    void SetZombieStats(EnemyHPController zombie)
+    {
+
+        int hp = HPIncrease * (int)(waveNumber / wavesForIncrease);
+
+        zombie.SetHP(hp);
     }
 
     void OnZombieDead(System.Object sender, EventArgs e)
@@ -85,8 +104,11 @@ public class WaveManager : MonoBehaviour
         {
             Debug.Log("Wave over!");
             ongoingWave = false;
+            StartCoroutine(StartNextWave());
         }
     }
+
+
 
     Vector3 GetSpawnpoint()
     {
