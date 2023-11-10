@@ -43,7 +43,12 @@ public class EnemyHPController : MonoBehaviour
 
     public void Die()
     {
-        Died.Invoke(this, EventArgs.Empty);
+        if (Died != null)
+        {
+
+            Died.Invoke(this, EventArgs.Empty);
+
+        }
         gameObject.SetActive(false);
         DropCoin();
     }
