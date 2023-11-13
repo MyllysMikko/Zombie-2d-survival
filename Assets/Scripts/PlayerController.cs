@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] int hp;
+
     public float moveSpeed = 5f;
     public float currentSpeed = 0;
     float moveX;
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
 
     [SerializeField] Rigidbody2D rb;
+
 
     
     private void Update()
@@ -71,6 +74,20 @@ public class PlayerController : MonoBehaviour
                 currentSpeed = 0;
             }
             rb.MovePosition(transform.position + lastRecorderDir * currentSpeed * Time.deltaTime);
+        }
+    }
+
+    public void SetHP(int hp)
+    {
+        this.hp = hp;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            Debug.Log("Dead");
         }
     }
 

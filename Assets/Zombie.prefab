@@ -219,6 +219,10 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 1
   turnSpeed: 50
+  attacking: 0
+  attackRange: 1.5
+  attackDelay: 0.2
+  attackDamage: 5
 --- !u!114 &4286651507183657429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 20
+  CoinModel: {fileID: 0}
 --- !u!61 &8322903357893858242
 BoxCollider2D:
   m_ObjectHideFlags: 0

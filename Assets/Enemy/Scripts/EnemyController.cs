@@ -6,14 +6,23 @@ public class EnemyController : MonoBehaviour
 {
     //[SerializeField] GameObject player;
     [SerializeField] PlayerController player;
+
+    [Header("Movement")]
     [SerializeField] float moveSpeed;
     [SerializeField] float turnSpeed;
+
+    [Header("Attack")]
+    [SerializeField] bool attacking;
+    [SerializeField] float attackRange;
+    [SerializeField] float attackDelay;
+    [SerializeField] int attackDamage;
 
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        attacking = false;
 
     }
 
@@ -22,13 +31,39 @@ public class EnemyController : MonoBehaviour
     {
         TurnTowardPlayer();
         MoveForward();
-        
+    
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange && !attacking)
+        {
+            StartCoroutine(Attack());
+        }
 
+    }
+
+    IEnumerator Attack()
+    {
+        float originalTurnSpeed = turnSpeed;
+        turnSpeed *= 10;
+        attacking = true;
+        yield return new WaitForSeconds(attackDelay);
+
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        {
+            player.TakeDamage(attackDamage);
+        }  
+        
+        turnSpeed = originalTurnSpeed;
+
+        yield return new WaitForSeconds(attackDelay);
+
+        attacking = false;
     }
 
     void MoveForward()
     {
-        transform.position += transform.right * moveSpeed * Time.deltaTime;
+        if (!attacking)
+        {
+            transform.position += transform.right * moveSpeed * Time.deltaTime;
+        }
     }
 
     void TurnTowardPlayer()
