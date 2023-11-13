@@ -86,7 +86,7 @@ public class Weapon : MonoBehaviour
         reloading = false;
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         if (!reloading)
         {
@@ -100,7 +100,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    void FireBullet()
+    public virtual void FireBullet()
     {
 
         float randomAngle = Random.Range(-bulletSpread, bulletSpread);
@@ -119,7 +119,7 @@ public class Weapon : MonoBehaviour
 
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(CalculateDamage());
 
                 Debug.Log("Hit!");
             }
@@ -129,6 +129,13 @@ public class Weapon : MonoBehaviour
         {
             trail.GetComponent<BulletTrail>().SetTarget(transform.position + finalDirection * 20);
         }
+    }
+
+
+    //Mikäli halutaan laskea vahinko eri tavalla, tämä voidana overrideta
+    public virtual int CalculateDamage()
+    {
+        return damage;
     }
 
     enum GunType
