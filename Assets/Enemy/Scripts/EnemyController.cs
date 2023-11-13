@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,16 @@ public class EnemyController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float moveSpeed;
     [SerializeField] float turnSpeed;
+
+    //Pidetään turnSpeed tallessa.
+    //turnSpeediä kasvatetaan kun zombie hyökkää. Mikäli zombie kuolee hyökkäämisen aikana, turnspeedia ei resetoida.
+    [SerializeField] float defaultTurnSpeed;
+
+    [Header("HP")]
+    [SerializeField] int hp;
+    public GameObject CoinModel;
+
+    public EventHandler Died;
 
     [Header("Attack")]
     [SerializeField] bool attacking;
@@ -41,7 +52,6 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator Attack()
     {
-        float originalTurnSpeed = turnSpeed;
         turnSpeed *= 10;
         attacking = true;
         yield return new WaitForSeconds(attackDelay);
@@ -49,9 +59,9 @@ public class EnemyController : MonoBehaviour
         if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
         {
             player.TakeDamage(attackDamage);
-        }  
-        
-        turnSpeed = originalTurnSpeed;
+        }
+
+        turnSpeed = defaultTurnSpeed;
 
         yield return new WaitForSeconds(attackDelay);
 
@@ -75,5 +85,48 @@ public class EnemyController : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, rotatedToTarget);
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+    }
+
+    public void SetStats(int hp, int attackDamage)
+    {
+        this.hp = hp;
+        this.attackDamage = attackDamage;
+
+        attacking = false;
+        turnSpeed = defaultTurnSpeed;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+
+        if (hp <= 0)
+        {
+            Die();
+
+        }
+    }
+
+    public void Die()
+    {
+        if (Died != null)
+        {
+
+            Died.Invoke(this, EventArgs.Empty);
+
+        }
+        gameObject.SetActive(false);
+        DropCoin();
+    }
+
+    private void DropCoin()
+    {
+        if (CoinModel != null)
+        {
+            Vector2 position = transform.position;
+            GameObject coin = Instantiate(CoinModel, position + new Vector2(0.0f, 1.0f), Quaternion.identity);
+            coin.SetActive(true);
+            Destroy(coin, 5f);
+        }
     }
 }

@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-
-    [SerializeField] GameObject zombiePrefab;
-    [SerializeField] List<GameObject> zombies = new List<GameObject>();
-    [SerializeField] Transform[] spawnPoints;
-
     [SerializeField] int waveNumber;
     [SerializeField] float timeBetweenWaves;
     [SerializeField] bool ongoingWave;
@@ -18,7 +13,19 @@ public class WaveManager : MonoBehaviour
 
     [Header("Stat increase")]
     [SerializeField] int wavesForIncrease;
+    [SerializeField] int baseHP;
     [SerializeField] int HPIncrease;
+    [SerializeField] int baseDamage;
+    [SerializeField] int damageIncrease;
+
+    [Header("")]
+    [SerializeField] GameObject zombiePrefab;
+    [SerializeField] List<GameObject> zombies = new List<GameObject>();
+    [SerializeField] Transform[] spawnPoints;
+
+
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +79,8 @@ public class WaveManager : MonoBehaviour
                 zombie.transform.position = spawnPosition;
 
                 EnemyHPController enemyHPController = zombie.GetComponent<EnemyHPController>();
-                SetZombieStats(enemyHPController);
+                EnemyController enemyController = zombie.GetComponent<EnemyController>();
+                SetZombieStats(enemyController);
 
                 foundInactive = true;
                 break;
@@ -82,19 +90,22 @@ public class WaveManager : MonoBehaviour
         if (!foundInactive)
         {
             GameObject zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
-            EnemyHPController enemyHPController = zombie.GetComponent<EnemyHPController>();
-            SetZombieStats(enemyHPController);
-            enemyHPController.Died += OnZombieDead;
+            EnemyController enemyController = zombie.GetComponent<EnemyController>();
+            SetZombieStats(enemyController);
+            enemyController.Died += OnZombieDead;
             zombies.Add(zombie);
+            
         }
     }
 
-    void SetZombieStats(EnemyHPController zombie)
+    void SetZombieStats(EnemyController zombie)
     {
+        int multiplier = waveNumber / wavesForIncrease;
 
-        int hp = HPIncrease * (int)(waveNumber / wavesForIncrease);
+        int hp = baseHP + HPIncrease * multiplier;
+        int attackDamage = baseDamage + damageIncrease * multiplier;
 
-        zombie.SetHP(hp);
+        zombie.SetStats(hp, attackDamage);
     }
 
     void OnZombieDead(System.Object sender, EventArgs e)

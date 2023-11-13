@@ -115,7 +115,7 @@ public class Weapon : MonoBehaviour
         {
             trail.GetComponent<BulletTrail>().SetTarget(hit.point);
 
-            EnemyHPController enemy= hit.collider.GetComponent<EnemyHPController>();
+            EnemyController enemy= hit.collider.GetComponent<EnemyController>();
 
             if (enemy != null)
             {
