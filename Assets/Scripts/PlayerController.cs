@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            Debug.Log("Dead");
+            gameObject.SetActive(false);
         }
     }
 
