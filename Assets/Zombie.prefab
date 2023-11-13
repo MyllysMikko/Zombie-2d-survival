@@ -178,7 +178,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1875793268126059707}
   - component: {fileID: 7332956801059392177}
-  - component: {fileID: 4286651507183657429}
   - component: {fileID: 8322903357893858242}
   m_Layer: 0
   m_Name: Zombie
@@ -218,20 +217,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   moveSpeed: 1
-  turnSpeed: 50
---- !u!114 &4286651507183657429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8862155136193008393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca5ba1bac0af04f40826cd1969655a4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 20
+  turnSpeed: 0
+  defaultTurnSpeed: 50
+  hp: 0
+  CoinModel: {fileID: 0}
+  attacking: 0
+  attackRange: 1.5
+  attackDelay: 0.2
+  attackDamage: 5
 --- !u!61 &8322903357893858242
 BoxCollider2D:
   m_ObjectHideFlags: 0
