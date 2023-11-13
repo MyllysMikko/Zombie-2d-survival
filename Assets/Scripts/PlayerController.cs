@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            
             currentSpeed += acceleration * Time.deltaTime;
             if (currentSpeed > moveSpeed)
             {
@@ -67,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            
             currentSpeed -= deceleration * Time.deltaTime;
             if (currentSpeed < 0)
             {
@@ -90,5 +88,13 @@ public class PlayerController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    enum PlayerState
+    {
+        Alive,
+        Pause,
+        Dead,
+    }
+
 
 }
