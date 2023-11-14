@@ -29,17 +29,44 @@ public class ShopManager : MonoBehaviour
         {
             shopCanvas.SetActive(!shopCanvas.activeInHierarchy);
         }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Score.moneyAmount = 10000;
+        }
     }
     public void BuyUpgrade(int index)
     {
         if (index >= 0 && index < upgrades.Count)
         {
             Upgrade upgrade = upgrades[index];
-            if (true) // Score.moneyAmount >= upgrade.price
+            if (Score.moneyAmount >= upgrade.price)
             {
+                Score.moneyAmount -= upgrade.price;
+
+                UpgradeStat(upgrade.stat);
+
                 upgrade.price = (int)(upgrade.price * upgrade.priceIncreasePercentage);
                 UpdateShopDisplay();
             }
+        }
+    }
+
+    void UpgradeStat(Upgrade.Stat stat)
+    {
+        switch (stat)
+        {
+            case Upgrade.Stat.HP:
+                playerController.IncreaseMaxHP(1.2f);
+                break;
+            case Upgrade.Stat.WeaponDamage:
+                break;
+            case Upgrade.Stat.ShootSpeed:
+                break;
+            case Upgrade.Stat.WeaponMaxAmmo:
+                break;
+            default:
+                break;
         }
     }
 
@@ -74,7 +101,15 @@ public class ShopManager : MonoBehaviour
 [System.Serializable]
 public class Upgrade
 {
-    public string name;
+    public Stat stat;
     public int price;
     public float priceIncreasePercentage; // Muodossa 1.00f! Esim 10% olisi 1.10f
+
+    public enum Stat
+    {
+        HP,
+        WeaponDamage,
+        ShootSpeed,
+        WeaponMaxAmmo,
+    }
 }

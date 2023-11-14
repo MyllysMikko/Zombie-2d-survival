@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +8,12 @@ public class Score : MonoBehaviour
 {
 
     public static int moneyAmount = 0;
-    private Text moneyText;
+    private TextMeshProUGUI moneyText;
 
 
     void Start()
     {
-        moneyText = GetComponent<Text>();
+        moneyText = GetComponent<TextMeshProUGUI>();
         moneyAmount = 0;
     }
 
