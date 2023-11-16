@@ -55,6 +55,30 @@ public class WeaponHandler : MonoBehaviour
         }
     }
 
+    public void IncreaseWeaponDamage(float increasePercentage)
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.IncreaseDamage(increasePercentage);
+        }
+    }
+
+    public void IncreaseWeaponMaxReserve(float increasePercentage)
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.IncreaseMaxReserve(increasePercentage);
+        }
+    }
+
+    public void IncreaseWeaponClipSize(float increasePercentage)
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.IncreaseClipSize(increasePercentage);
+        }
+    }
+
     void SwitchWeapon(int index)
     {
         for (int i = 0; i < weapons.Length; i++)

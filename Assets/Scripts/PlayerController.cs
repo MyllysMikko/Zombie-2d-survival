@@ -80,19 +80,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetHP(int hp)
+    public void RestoreHP()
     {
-        this.currentHP = hp;
+        currentHP = maxHP;
     }
 
-    public void IncreaseMaxHP(float increasePercentage)
+    public void IncreaseMaxHP(int hp)
     {
         //HP:n m‰‰r‰ suhteessa maksimi hp:hen pidet‰‰n samana.
         //Esim: Jos maksimi hp on 100 ja pelaajalla on 50 hp. 50 / 100 = 0.5. H‰nell‰ on 50% hp:ta.
         //Jos maksimi hp nostetaan 150. 50% t‰st‰ on 75
         // 0.5 * 150 = 75
         float currentHPPercentage = (float)currentHP / (float)maxHP;
-        maxHP = (int)(maxHP * increasePercentage);
+        maxHP = maxHP + hp;
         currentHP = (int)(currentHPPercentage * maxHP);
 
     }

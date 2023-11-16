@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -103,7 +104,7 @@ public class Weapon : MonoBehaviour
     public virtual void FireBullet()
     {
 
-        float randomAngle = Random.Range(-bulletSpread, bulletSpread);
+        float randomAngle = UnityEngine.Random.Range(-bulletSpread, bulletSpread);
         Quaternion deviation = Quaternion.AngleAxis(randomAngle, Vector3.forward);
 
         Vector3 finalDirection = deviation * transform.right;
@@ -136,6 +137,22 @@ public class Weapon : MonoBehaviour
     public virtual int CalculateDamage()
     {
         return damage;
+    }
+
+    public void IncreaseDamage(float increasePercentage)
+    {
+        Debug.Log(MathF.Round(damage * increasePercentage));
+        damage = (int)Mathf.Round(damage * increasePercentage);
+    }
+
+    public void IncreaseMaxReserve(float increasePercentage)
+    {
+        maxReserve = (int)Mathf.Round(maxReserve * increasePercentage);
+    }
+
+    public void IncreaseClipSize(float increasePercentage)
+    {
+        maxClip = (int)Mathf.Round(maxClip * increasePercentage);
     }
 
     enum GunType

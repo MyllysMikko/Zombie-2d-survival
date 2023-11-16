@@ -7,6 +7,7 @@ public class ShopManager : MonoBehaviour
 {
     [SerializeField] GameObject shopCanvas;
     [SerializeField] PlayerController playerController;
+    [SerializeField] WeaponHandler weaponHandler;
 
     // PIDÄ HUOLTA ETTÄ NÄMÄ OVAT YHTÄ PITKIÄ.
     // = Jokaista upgradea kohtaa on hinta.
@@ -14,6 +15,12 @@ public class ShopManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] prices;
 
     bool inRange;
+
+    [Header("Stat increases")]
+    [SerializeField] int hpIncrease;
+    [SerializeField] float damageIncreasePercentage;
+    [SerializeField] float clipIncreasePercentage;
+    [SerializeField] float reserveIncreasePercentage;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,13 +64,23 @@ public class ShopManager : MonoBehaviour
         switch (stat)
         {
             case Upgrade.Stat.HP:
-                playerController.IncreaseMaxHP(1.2f);
+                playerController.IncreaseMaxHP(hpIncrease);
+                break;
+            case Upgrade.Stat.RestoreHP:
+                playerController.RestoreHP();
                 break;
             case Upgrade.Stat.WeaponDamage:
+                weaponHandler.IncreaseWeaponDamage(damageIncreasePercentage);
                 break;
             case Upgrade.Stat.ShootSpeed:
                 break;
+            case Upgrade.Stat.ClipSize:
+                weaponHandler.IncreaseWeaponClipSize(clipIncreasePercentage);
+                break;
             case Upgrade.Stat.WeaponMaxAmmo:
+                weaponHandler.IncreaseWeaponMaxReserve(reserveIncreasePercentage);
+                break;
+            case Upgrade.Stat.RestoreAmmo:
                 break;
             default:
                 break;
@@ -74,7 +91,8 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < upgrades.Count; i++)
         {
-            prices[i].text = upgrades[i].price.ToString();
+            //prices[i].text = upgrades[i].price.ToString();
+            prices[i].text = $"${upgrades[i].price}";
         }
     }
 
@@ -108,8 +126,11 @@ public class Upgrade
     public enum Stat
     {
         HP,
+        RestoreHP,
         WeaponDamage,
         ShootSpeed,
+        ClipSize,
         WeaponMaxAmmo,
+        RestoreAmmo
     }
 }
