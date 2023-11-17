@@ -19,6 +19,7 @@ public class ShopManager : MonoBehaviour
     [Header("Stat increases")]
     [SerializeField] int hpIncrease;
     [SerializeField] float damageIncreasePercentage;
+    [SerializeField] float rateOfFireIncreasePercentage;
     [SerializeField] float clipIncreasePercentage;
     [SerializeField] float reserveIncreasePercentage;
     // Start is called before the first frame update
@@ -39,7 +40,7 @@ public class ShopManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            Score.moneyAmount = 10000;
+            Score.moneyAmount += 100000;
         }
     }
     public void BuyUpgrade(int index)
@@ -73,6 +74,7 @@ public class ShopManager : MonoBehaviour
                 weaponHandler.IncreaseWeaponDamage(damageIncreasePercentage);
                 break;
             case Upgrade.Stat.ShootSpeed:
+                weaponHandler.IncreaseWeaponRateOfFire(rateOfFireIncreasePercentage);
                 break;
             case Upgrade.Stat.ClipSize:
                 weaponHandler.IncreaseWeaponClipSize(clipIncreasePercentage);

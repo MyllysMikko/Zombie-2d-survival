@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     [Header("Gun attributes")]
     [SerializeField] int damage;
     [SerializeField] float bulletSpread;
+    [SerializeField] int bulletsPerSecond;
     [SerializeField] float shootDelay;
     [SerializeField] float nextShotAt;
     [SerializeField] float shotLenght;
@@ -27,6 +28,7 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CalculateRateOfFire();
         nextShotAt = 0;
         currentClip = maxClip;
         currentReserve = maxReserve;
@@ -139,10 +141,20 @@ public class Weapon : MonoBehaviour
         return damage;
     }
 
+    public void CalculateRateOfFire()
+    {
+        shootDelay = 1f / bulletsPerSecond;
+    }
+
     public void IncreaseDamage(float increasePercentage)
     {
-        Debug.Log(MathF.Round(damage * increasePercentage));
         damage = (int)Mathf.Round(damage * increasePercentage);
+    }
+
+    public void IncreaseRateOfFire(float increasePercentage)
+    {
+        bulletsPerSecond = (int)Mathf.Round(bulletsPerSecond * increasePercentage);
+        CalculateRateOfFire();
     }
 
     public void IncreaseMaxReserve(float increasePercentage)

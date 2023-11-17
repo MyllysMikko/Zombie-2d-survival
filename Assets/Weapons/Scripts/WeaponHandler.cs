@@ -63,6 +63,14 @@ public class WeaponHandler : MonoBehaviour
         }
     }
 
+    public void IncreaseWeaponRateOfFire(float increasePercentage)
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.IncreaseRateOfFire(increasePercentage);
+        }
+    }
+
     public void IncreaseWeaponMaxReserve(float increasePercentage)
     {
         foreach (Weapon weapon in weapons)
