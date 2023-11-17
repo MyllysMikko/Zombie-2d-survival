@@ -81,6 +81,7 @@ public class ShopManager : MonoBehaviour
                 weaponHandler.IncreaseWeaponMaxReserve(reserveIncreasePercentage);
                 break;
             case Upgrade.Stat.RestoreAmmo:
+                weaponHandler.RestoreWeaponAmmo();
                 break;
             default:
                 break;

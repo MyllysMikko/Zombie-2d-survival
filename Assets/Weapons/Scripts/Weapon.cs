@@ -155,6 +155,12 @@ public class Weapon : MonoBehaviour
         maxClip = (int)Mathf.Round(maxClip * increasePercentage);
     }
 
+    public void RestoreAmmo()
+    {
+        currentClip = maxClip;
+        currentReserve = maxReserve;
+    }
+
     enum GunType
     {
         Semiautomatic,

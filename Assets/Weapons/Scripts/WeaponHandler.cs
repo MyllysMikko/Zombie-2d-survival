@@ -79,6 +79,14 @@ public class WeaponHandler : MonoBehaviour
         }
     }
 
+    public void RestoreWeaponAmmo()
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.RestoreAmmo();
+        }
+    }
+
     void SwitchWeapon(int index)
     {
         for (int i = 0; i < weapons.Length; i++)
