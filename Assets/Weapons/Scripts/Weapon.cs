@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class Weapon : MonoBehaviour
     [Header("Gun attributes")]
     [SerializeField] int damage;
     [SerializeField] float bulletSpread;
+    [SerializeField] int bulletsPerSecond;
     [SerializeField] float shootDelay;
     [SerializeField] float nextShotAt;
     [SerializeField] float shotLenght;
@@ -26,6 +28,7 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CalculateRateOfFire();
         nextShotAt = 0;
         currentClip = maxClip;
         currentReserve = maxReserve;
@@ -103,7 +106,7 @@ public class Weapon : MonoBehaviour
     public virtual void FireBullet()
     {
 
-        float randomAngle = Random.Range(-bulletSpread, bulletSpread);
+        float randomAngle = UnityEngine.Random.Range(-bulletSpread, bulletSpread);
         Quaternion deviation = Quaternion.AngleAxis(randomAngle, Vector3.forward);
 
         Vector3 finalDirection = deviation * transform.right;
@@ -136,6 +139,38 @@ public class Weapon : MonoBehaviour
     public virtual int CalculateDamage()
     {
         return damage;
+    }
+
+    public void CalculateRateOfFire()
+    {
+        shootDelay = 1f / bulletsPerSecond;
+    }
+
+    public void IncreaseDamage(float increasePercentage)
+    {
+        damage = (int)Mathf.Round(damage * increasePercentage);
+    }
+
+    public void IncreaseRateOfFire(float increasePercentage)
+    {
+        bulletsPerSecond = (int)Mathf.Round(bulletsPerSecond * increasePercentage);
+        CalculateRateOfFire();
+    }
+
+    public void IncreaseMaxReserve(float increasePercentage)
+    {
+        maxReserve = (int)Mathf.Round(maxReserve * increasePercentage);
+    }
+
+    public void IncreaseClipSize(float increasePercentage)
+    {
+        maxClip = (int)Mathf.Round(maxClip * increasePercentage);
+    }
+
+    public void RestoreAmmo()
+    {
+        currentClip = maxClip;
+        currentReserve = maxReserve;
     }
 
     enum GunType

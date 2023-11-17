@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] int hp;
+    [SerializeField] int currentHP;
+    [SerializeField] int maxHP;
 
     public float moveSpeed = 5f;
     public float currentSpeed = 0;
@@ -22,7 +23,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
 
 
-    
+    private void Start()
+    {
+        currentHP = maxHP;
+    }
+
     private void Update()
     {
         ProcessInputs();
@@ -54,7 +59,6 @@ public class PlayerController : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            
             currentSpeed += acceleration * Time.deltaTime;
             if (currentSpeed > moveSpeed)
             {
@@ -67,7 +71,6 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            
             currentSpeed -= deceleration * Time.deltaTime;
             if (currentSpeed < 0)
             {
@@ -77,18 +80,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetHP(int hp)
+    public void RestoreHP()
     {
-        this.hp = hp;
+        currentHP = maxHP;
+    }
+
+    public void IncreaseMaxHP(int hp)
+    {
+        //HP:n määrä suhteessa maksimi hp:hen pidetään samana.
+        //Esim: Jos maksimi hp on 100 ja pelaajalla on 50 hp. 50 / 100 = 0.5. Hänellä on 50% hp:ta.
+        //Jos maksimi hp nostetaan 150. 50% tästä on 75
+        // 0.5 * 150 = 75
+        float currentHPPercentage = (float)currentHP / (float)maxHP;
+        maxHP = maxHP + hp;
+        currentHP = (int)(currentHPPercentage * maxHP);
+
     }
 
     public void TakeDamage(int damage)
     {
-        hp -= damage;
-        if (hp <= 0)
+        currentHP -= damage;
+        if (currentHP <= 0)
         {
             gameObject.SetActive(false);
         }
     }
+
+    enum PlayerState
+    {
+        Alive,
+        Pause,
+        Dead,
+    }
+
 
 }
