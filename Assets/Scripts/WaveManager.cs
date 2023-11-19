@@ -11,7 +11,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] int zombieAmmount;
     [SerializeField] int zombiesKilled;
 
-    [Header("Stat increase")]
+    [Header("Zombie")]
+    [SerializeField] float movementSpeed;
     [SerializeField] int wavesForIncrease;
     [SerializeField] int baseHP;
     [SerializeField] int HPIncrease;
@@ -105,7 +106,7 @@ public class WaveManager : MonoBehaviour
         int hp = baseHP + HPIncrease * multiplier;
         int attackDamage = baseDamage + damageIncrease * multiplier;
 
-        zombie.SetStats(hp, attackDamage);
+        zombie.SetStats(hp, movementSpeed, attackDamage);
     }
 
     void OnZombieDead(System.Object sender, EventArgs e)

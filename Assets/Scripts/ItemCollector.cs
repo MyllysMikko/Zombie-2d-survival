@@ -5,12 +5,14 @@ using UnityEngine;
 public class ItemCollector : MonoBehaviour
 {
 
+    [SerializeField] int moneyOnPickup;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Coin"))
         {
             Destroy(collision.gameObject);
-            Score.moneyAmount += 5;
+            Score.moneyAmount += moneyOnPickup;
         }
 
     }

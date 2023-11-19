@@ -87,9 +87,10 @@ public class EnemyController : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 
-    public void SetStats(int hp, int attackDamage)
+    public void SetStats(int hp, float moveSpeed, int attackDamage)
     {
         this.hp = hp;
+        this.moveSpeed = moveSpeed;
         this.attackDamage = attackDamage;
 
         attacking = false;
