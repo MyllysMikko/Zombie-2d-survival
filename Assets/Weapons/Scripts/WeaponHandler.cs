@@ -103,6 +103,7 @@ public class WeaponHandler : MonoBehaviour
             {
                 weapons[i].gameObject.SetActive(true);
                 weapons[i].reloading = false;
+                weapons[i].UpdateAmmoHud();
             }
             else
             {

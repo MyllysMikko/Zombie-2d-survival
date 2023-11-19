@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
     public bool reloading;
+
+    [SerializeField] TextMeshProUGUI clipText;
+    [SerializeField] TextMeshProUGUI reserveText;
 
     [Header("Gun attributes")]
     [SerializeField] int damage;
@@ -29,6 +33,7 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         CalculateRateOfFire();
+        UpdateAmmoHud();
         nextShotAt = 0;
         currentClip = maxClip;
         currentReserve = maxReserve;
@@ -87,6 +92,7 @@ public class Weapon : MonoBehaviour
         }
 
         reloading = false;
+        UpdateAmmoHud();
     }
 
     public virtual void Shoot()
@@ -99,6 +105,7 @@ public class Weapon : MonoBehaviour
 
                 currentClip--;
                 nextShotAt = Time.time + shootDelay;
+                UpdateAmmoHud();
             }
         }
     }
@@ -132,6 +139,12 @@ public class Weapon : MonoBehaviour
         {
             trail.GetComponent<BulletTrail>().SetTarget(transform.position + finalDirection * 20);
         }
+    }
+
+    public void UpdateAmmoHud()
+    {
+        clipText.text = $"{currentClip} / {maxClip}";
+        reserveText.text = currentReserve.ToString();
     }
 
 
