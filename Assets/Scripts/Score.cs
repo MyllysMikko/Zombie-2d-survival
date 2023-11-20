@@ -8,18 +8,37 @@ public class Score : MonoBehaviour
 {
 
     public static int moneyAmount = 0;
-    private TextMeshProUGUI moneyText;
+
+    [SerializeField] int score;
+
+    [SerializeField] TextMeshProUGUI moneyText;
+
+    [SerializeField] TextMeshProUGUI scoreText;
 
 
     void Start()
     {
-        moneyText = GetComponent<TextMeshProUGUI>();
         moneyAmount = 0;
+
+        score = 0;
+
+        UpdateScore();
     }
 
 
     void Update()
     {
         moneyText.text = "$: " + moneyAmount;    
+    }
+
+    void UpdateScore()
+    {
+        scoreText.text = $"Score: {score}";
+    }
+
+    public void AddScore(int amount)
+    {
+        score += amount;
+        UpdateScore();
     }
 }

@@ -33,7 +33,6 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         CalculateRateOfFire();
-        UpdateAmmoHud();
         nextShotAt = 0;
         currentClip = maxClip;
         currentReserve = maxReserve;

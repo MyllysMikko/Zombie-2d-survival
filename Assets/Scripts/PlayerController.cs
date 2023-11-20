@@ -1,10 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI hpText;
+
+    public EventHandler playerDied;
+
     [SerializeField] int currentHP;
     [SerializeField] int maxHP;
 
@@ -26,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
+        UpdateHpText();
     }
 
     private void Update()
@@ -83,6 +89,7 @@ public class PlayerController : MonoBehaviour
     public void RestoreHP()
     {
         currentHP = maxHP;
+        UpdateHpText();
     }
 
     public void IncreaseMaxHP(int hp)
@@ -95,15 +102,26 @@ public class PlayerController : MonoBehaviour
         maxHP = maxHP + hp;
         currentHP = (int)(currentHPPercentage * maxHP);
 
+        UpdateHpText();
     }
 
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
+        UpdateHpText();
         if (currentHP <= 0)
         {
             gameObject.SetActive(false);
+            if (playerDied != null)
+            {
+                playerDied.Invoke(this, EventArgs.Empty);
+            }
         }
+    }
+
+    void UpdateHpText()
+    {
+        hpText.text = $"HP: {currentHP} / {maxHP}";
     }
 
     enum PlayerState

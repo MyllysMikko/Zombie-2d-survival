@@ -218,7 +218,7 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 1
   turnSpeed: 0
-  defaultTurnSpeed: 70
+  defaultTurnSpeed: 100
   hp: 0
   CoinModel: {fileID: 6066159150178368664, guid: eba1845d3a4424d47ad5782ebbafe71d, type: 3}
   attacking: 0

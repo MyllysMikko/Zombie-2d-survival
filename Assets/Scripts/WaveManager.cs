@@ -1,10 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
+    [SerializeField] PlayerController player;
+    [SerializeField] GameObject deadScreen;
+    [SerializeField] GameObject hud;
+
+    [SerializeField] Score score;
+
+    [SerializeField] TextMeshProUGUI waveText;
+    [SerializeField] GameObject timer;
+    TextMeshProUGUI timerText;
+
     [SerializeField] int waveNumber;
     [SerializeField] float timeBetweenWaves;
     [SerializeField] bool ongoingWave;
@@ -31,7 +43,12 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player.playerDied += OnPlayerDead;
 
+        deadScreen.SetActive(false);
+        timerText = timer.GetComponent<TextMeshProUGUI>();
+        timer.SetActive(false);
+        UpdateWaveText();
     }
 
     // Update is called once per frame
@@ -39,7 +56,7 @@ public class WaveManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            StartWave();
+            StartCoroutine(StartNextWave());
         }
 
 
@@ -47,7 +64,17 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator StartNextWave()
     {
-        yield return new WaitForSeconds(timeBetweenWaves);
+        timer.SetActive(true);
+
+        float time = timeBetweenWaves;
+
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            timerText.text = $"Next wave in {time:0.0}";
+            yield return null;
+        }
+        timer.SetActive(false);
         StartWave();
     }
 
@@ -61,6 +88,8 @@ public class WaveManager : MonoBehaviour
         {
             SpawnEnemy();
         }
+
+        UpdateWaveText();
     }
 
     // Uudelleen k‰ytet‰‰n kuolleita zombeja.
@@ -112,12 +141,32 @@ public class WaveManager : MonoBehaviour
     void OnZombieDead(System.Object sender, EventArgs e)
     {
         zombiesKilled++;
+        score.AddScore(10);
         if (zombiesKilled == zombieAmmount)
         {
+            score.AddScore(100);
             Debug.Log("Wave over!");
             ongoingWave = false;
             StartCoroutine(StartNextWave());
         }
+    }
+
+    void OnPlayerDead(System.Object sender, EventArgs e)
+    {
+        //TODO: jos j‰‰ aikaa teh‰, niin tallenna t‰ss‰ score.
+        deadScreen.SetActive(true);
+        hud.SetActive(false);
+
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void UpdateWaveText()
+    {
+        waveText.text = $"Wave {waveNumber}";
     }
 
 
