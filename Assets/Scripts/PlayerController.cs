@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Rigidbody2D rb;
 
+    [Header("Animations")]
+    [SerializeField] PlayerAnimationController playerAnim;
+
 
     private void Start()
     {
@@ -63,6 +66,8 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction = new Vector3(moveX, moveY, 0f).normalized;
 
+        playerAnim.AnimateFeet(direction);
+
         if (direction.magnitude >= 0.1f)
         {
             currentSpeed += acceleration * Time.deltaTime;
@@ -73,6 +78,8 @@ public class PlayerController : MonoBehaviour
             rb.MovePosition(transform.position + direction * currentSpeed * Time.deltaTime);
 
             lastRecorderDir = direction;
+
+            //feetAnimator.SetBool("running", true);
         }
 
         else
@@ -83,6 +90,7 @@ public class PlayerController : MonoBehaviour
                 currentSpeed = 0;
             }
             rb.MovePosition(transform.position + lastRecorderDir * currentSpeed * Time.deltaTime);
+            //feetAnimator.SetBool("running", false);
         }
     }
 
