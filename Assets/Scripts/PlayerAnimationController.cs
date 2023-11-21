@@ -31,7 +31,7 @@ public class PlayerAnimationController : MonoBehaviour
 
             Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, rotatedToTarget);
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, feetTurnSpeed * Time.deltaTime);
+            feet.transform.rotation = Quaternion.RotateTowards(feet.transform.rotation, targetRotation, feetTurnSpeed * Time.deltaTime);
 
             feetAnim.SetBool("running", true);
         }
