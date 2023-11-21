@@ -28,6 +28,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float attackDelay;
     [SerializeField] int attackDamage;
 
+    public AudioSource source;
+    public AudioClip clip;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +62,7 @@ public class EnemyController : MonoBehaviour
         if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
         {
             player.TakeDamage(attackDamage);
+            source.PlayOneShot(clip);
         }
 
         turnSpeed = defaultTurnSpeed;
