@@ -2286,7 +2286,7 @@ MonoBehaviour:
   currentClip: 10
   maxReserve: 1000
   currentReserve: 0
-  reloadTime: 0
+  reloadTime: 1.67
 --- !u!1 &800496762
 GameObject:
   m_ObjectHideFlags: 0

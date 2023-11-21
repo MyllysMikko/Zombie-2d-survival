@@ -29,6 +29,11 @@ public class PlayerAnimationController : MonoBehaviour
         upperBodyAnim.SetTrigger("Shoot");
     }
 
+    public void TriggerReload()
+    {
+        upperBodyAnim.SetTrigger("Reload");
+    }
+
     public void AnimateFeet(Vector3 direction)
     {
 

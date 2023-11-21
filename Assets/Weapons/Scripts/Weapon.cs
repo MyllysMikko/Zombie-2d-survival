@@ -77,6 +77,7 @@ public class Weapon : MonoBehaviour
     IEnumerator Reload()
     {
         reloading = true;
+        playerAnim.TriggerReload();
         yield return new WaitForSeconds(reloadTime);
 
         int ammountToReload = maxClip - currentClip;
