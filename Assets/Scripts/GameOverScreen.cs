@@ -6,6 +6,6 @@ public class GameOverScreen : MonoBehaviour
 {
     public void RestartButton()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Map");
     }
 }
