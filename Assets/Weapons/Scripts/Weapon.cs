@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] PlayerAnimationController playerAnim;
+
     public bool reloading;
 
     [SerializeField] TextMeshProUGUI clipText;
@@ -36,6 +38,20 @@ public class Weapon : MonoBehaviour
         nextShotAt = 0;
         currentClip = maxClip;
         currentReserve = maxReserve;
+    }
+
+    private void OnEnable()
+    {
+        UpdateAmmoHud();
+
+        if (gunType == GunType.automatic)
+        {
+            playerAnim.SetInt(0);
+        }
+        else
+        {
+            playerAnim.SetInt(1);
+        }
     }
 
 
@@ -75,6 +91,7 @@ public class Weapon : MonoBehaviour
     IEnumerator Reload()
     {
         reloading = true;
+        playerAnim.TriggerReload();
         yield return new WaitForSeconds(reloadTime);
 
         int ammountToReload = maxClip - currentClip;
@@ -105,6 +122,8 @@ public class Weapon : MonoBehaviour
                 currentClip--;
                 nextShotAt = Time.time + shootDelay;
                 UpdateAmmoHud();
+
+                playerAnim.TriggerShoot();
             }
         }
     }

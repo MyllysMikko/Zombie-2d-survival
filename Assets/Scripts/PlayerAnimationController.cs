@@ -8,6 +8,10 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] float feetTurnSpeed;
     [SerializeField] GameObject feet;
     [SerializeField] Animator feetAnim;
+
+    [Header("Upperbody")]
+    [SerializeField] GameObject upperBody;
+    [SerializeField] Animator upperBodyAnim;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +22,21 @@ public class PlayerAnimationController : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void TriggerShoot()
+    {
+        upperBodyAnim.SetTrigger("Shoot");
+    }
+
+    public void TriggerReload()
+    {
+        upperBodyAnim.SetTrigger("Reload");
+    }
+
+    public void SetInt(int value)
+    {
+        upperBodyAnim.SetInteger("WeaponType", value);
     }
 
     public void AnimateFeet(Vector3 direction)
