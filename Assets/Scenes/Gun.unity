@@ -1336,7 +1336,7 @@ Transform:
   m_GameObject: {fileID: 362942214}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.157, y: -0.501, z: 0}
+  m_LocalPosition: {x: 1.634, y: -0.483, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2270,6 +2270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a70cbe6cf2b5748838973eb85180af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnim: {fileID: 1683376350}
   reloading: 0
   clipText: {fileID: 563489436}
   reserveText: {fileID: 1277511950}
@@ -2285,7 +2286,7 @@ MonoBehaviour:
   currentClip: 10
   maxReserve: 1000
   currentReserve: 0
-  reloadTime: 0
+  reloadTime: 1.67
 --- !u!1 &800496762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3134,6 +3135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 1000
+  shootPoint: {fileID: 362942215}
 --- !u!1 &1002271823
 GameObject:
   m_ObjectHideFlags: 0
@@ -3456,6 +3458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1683376342}
+  cameraOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1096163986
 GameObject:
   m_ObjectHideFlags: 0
@@ -4783,6 +4786,8 @@ MonoBehaviour:
   feetTurnSpeed: 1000
   feet: {fileID: 109693186}
   feetAnim: {fileID: 109693187}
+  upperBody: {fileID: 1918422580}
+  upperBodyAnim: {fileID: 1918422583}
 --- !u!1 &1691774995
 GameObject:
   m_ObjectHideFlags: 0
@@ -6110,7 +6115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2085975878
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6222,6 +6227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a70cbe6cf2b5748838973eb85180af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnim: {fileID: 1683376350}
   reloading: 0
   clipText: {fileID: 563489436}
   reserveText: {fileID: 1277511950}
@@ -6237,7 +6243,7 @@ MonoBehaviour:
   currentClip: 10
   maxReserve: 1000
   currentReserve: 0
-  reloadTime: 0
+  reloadTime: 1.25
 --- !u!1001 &2024911335215118920
 PrefabInstance:
   m_ObjectHideFlags: 0
