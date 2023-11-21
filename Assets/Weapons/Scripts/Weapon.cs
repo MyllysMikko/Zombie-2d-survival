@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] PlayerAnimationController playerAnim;
+
     public bool reloading;
 
     [SerializeField] TextMeshProUGUI clipText;
@@ -105,6 +107,8 @@ public class Weapon : MonoBehaviour
                 currentClip--;
                 nextShotAt = Time.time + shootDelay;
                 UpdateAmmoHud();
+
+                playerAnim.TriggerShoot();
             }
         }
     }
