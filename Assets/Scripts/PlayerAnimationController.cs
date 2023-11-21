@@ -34,6 +34,11 @@ public class PlayerAnimationController : MonoBehaviour
         upperBodyAnim.SetTrigger("Reload");
     }
 
+    public void SetInt(int value)
+    {
+        upperBodyAnim.SetInteger("WeaponType", value);
+    }
+
     public void AnimateFeet(Vector3 direction)
     {
 

@@ -40,6 +40,20 @@ public class Weapon : MonoBehaviour
         currentReserve = maxReserve;
     }
 
+    private void OnEnable()
+    {
+        UpdateAmmoHud();
+
+        if (gunType == GunType.automatic)
+        {
+            playerAnim.SetInt(0);
+        }
+        else
+        {
+            playerAnim.SetInt(1);
+        }
+    }
+
 
     // Update is called once per frame
     void Update()

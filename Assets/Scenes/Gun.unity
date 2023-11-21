@@ -6243,7 +6243,7 @@ MonoBehaviour:
   currentClip: 10
   maxReserve: 1000
   currentReserve: 0
-  reloadTime: 0
+  reloadTime: 1.25
 --- !u!1001 &2024911335215118920
 PrefabInstance:
   m_ObjectHideFlags: 0
