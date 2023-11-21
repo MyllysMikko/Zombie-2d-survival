@@ -66,7 +66,11 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction = new Vector3(moveX, moveY, 0f).normalized;
 
-        playerAnim.AnimateFeet(direction);
+        if (playerAnim != null)
+        {
+            playerAnim.AnimateFeet(direction);
+        }
+
 
         if (direction.magnitude >= 0.1f)
         {
@@ -129,7 +133,10 @@ public class PlayerController : MonoBehaviour
 
     void UpdateHpText()
     {
-        hpText.text = $"HP: {currentHP} / {maxHP}";
+        if (hpText != null)
+        {
+            hpText.text = $"HP: {currentHP} / {maxHP}";
+        }
     }
 
     enum PlayerState
