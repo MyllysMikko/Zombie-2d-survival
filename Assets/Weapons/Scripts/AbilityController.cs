@@ -25,7 +25,7 @@ public class abilityController : Weapon
 
     void Update()
     {
-        
+        PlayerInput();
 
         if (Input.GetKey(KeyCode.G))
         {

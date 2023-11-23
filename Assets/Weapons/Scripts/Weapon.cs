@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] TextMeshProUGUI reserveText;
 
     [Header("Gun attributes")]
-    [SerializeField] int damage;
+    public int damage;
     [SerializeField] float bulletSpread;
     [SerializeField] int bulletsPerSecond;
     [SerializeField] float shootDelay;
@@ -166,8 +166,11 @@ public class Weapon : MonoBehaviour
 
     public void UpdateAmmoHud()
     {
-        clipText.text = $"{currentClip} / {maxClip}";
-        reserveText.text = currentReserve.ToString();
+        if (clipText != null && reserveText != null)
+        {
+            clipText.text = $"{currentClip} / {maxClip}";
+            reserveText.text = currentReserve.ToString();
+        }
     }
 
 

@@ -133,14 +133,13 @@ GameObject:
   m_Component:
   - component: {fileID: 150929217}
   - component: {fileID: 150929216}
-  - component: {fileID: 150929218}
   m_Layer: 0
   m_Name: Ability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &150929216
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -209,36 +208,6 @@ Transform:
   - {fileID: 1562557172}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &150929218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150929215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e27a2504fd578045b8b15c11e0a7d4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reloading: 0
-  damage: 1
-  bulletSpread: 1
-  shootDelay: 0.1
-  nextShotAt: 0
-  shotLenght: 0
-  bulletTrail: {fileID: 1457563365}
-  gunType: 1
-  maxClip: 100
-  currentClip: 10
-  maxReserve: 1000
-  currentReserve: 0
-  reloadTime: 0
-  isAbilityActive: 0
-  CanIUseAbility: 0
-  currentTime: 0
-  abilityDuration: 5
-  coolDownText: {fileID: 571783059}
 --- !u!1 &502967770
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +323,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612de8b7c7253434881717226080f192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
   moneyText: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!1 &571783057
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,9 +504,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e27a2504fd578045b8b15c11e0a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnim: {fileID: 0}
   reloading: 0
+  clipText: {fileID: 0}
+  reserveText: {fileID: 0}
   damage: 1
   bulletSpread: 1
+  bulletsPerSecond: 0
   shootDelay: 0.1
   nextShotAt: 0
   shotLenght: 0
@@ -837,6 +812,8 @@ MonoBehaviour:
   attackRange: 0
   attackDelay: 0
   attackDamage: 0
+  source: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!61 &1007356697
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1352,11 +1329,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1457563365 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8579590539065061908, guid: d7792e23da298ae4e9b7426cb0a9150f, type: 3}
-  m_PrefabInstance: {fileID: 2024911335215118920}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1562557171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,6 +1567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 1000
+  shootPoint: {fileID: 713424849}
 --- !u!114 &1683376346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1607,13 +1580,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72b1580032e353478255bb228f657af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
+  hpText: {fileID: 0}
+  currentHP: 0
+  maxHP: 0
   moveSpeed: 5
   currentSpeed: 0
   acceleration: 50
   deceleration: 50
   moveDirection: {x: 0, y: 0, z: 0}
   rb: {fileID: 1683376347}
+  playerAnim: {fileID: 0}
 --- !u!50 &1683376347
 Rigidbody2D:
   serializedVersion: 4
@@ -1698,6 +1674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c7f4fe916ab0d4ca726382a4d28d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyOnPickup: 0
 --- !u!1 &1750944051
 GameObject:
   m_ObjectHideFlags: 0
