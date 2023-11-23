@@ -6,11 +6,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public class abilityController : Weapon
+public class abilityController : MonoBehaviour
 {
     public bool isAbilityActive;
     public bool CanIUseAbility = true;
-    [SerializeField] private float currentTime = 0f;
+    [SerializeField] private float AbilityCoolDownTime = 0f;
     private float startTime = 30f;
     [SerializeField] private float abilityDuration = 5;  
 
@@ -19,102 +19,99 @@ public class abilityController : Weapon
     
     void Start()
     {
-        currentTime = startTime;
+        AbilityCoolDownTime = startTime;
         CanIUseAbility = true;
     }
 
     void Update()
     {
-        PlayerInput();
-
-        if (Input.GetKey(KeyCode.G))
+        if (Input.GetKey(KeyCode.G) && !isAbilityActive)
         {
-            CanIUseAbility = false;
-            isAbilityActive = true;
-            CalculateDamage();
+            StartCoroutine(Ability());
+        }
+
+        //if (Input.GetKey(KeyCode.G))
+        //{
+        //    CanIUseAbility = false;
+        //    isAbilityActive = true;
             
-        }
+            
+        //}
 
-        if (CanIUseAbility == false)
-        {
-            isAbilityActive = true;
-            CalculateDamage();
-
-            if (currentTime > 0)
-            {
-                currentTime -= 1 * Time.deltaTime;
-                abilityDuration -= 1 * Time.deltaTime;
-            }
-            coolDownText.text = currentTime.ToString("0");
-
-
-            if (currentTime <= 0)
-            {
-                isAbilityActive = false;
-
-                
-                CanIUseAbility = true;
-                if (abilityDuration <= 0)
-                {
-                    Reset();
-                    if (Input.GetKey(KeyCode.G))
-                    {
-
-                        CanIUseAbility = false;
-                        isAbilityActive = true;
-
-
-                    }
-                    else
-                    {
-                        isAbilityActive = false;
-
-                    }
-
-                    isAbilityActive = false;
-
-                    CanIUseAbility = true;
-                }
-                if (CanIUseAbility == false)
-                {
-                    isAbilityActive = true;
-
-                    CanIUseAbility = false;
-                    
-                }
-                else
-                {
-                    isAbilityActive = false;
-
-                }
-            }
-        }
-
-
-
-
-    }
-
-    public override int CalculateDamage()
-    {
-        if (isAbilityActive == true)
-        {
+        //if (CanIUseAbility == false)
+        //{
+        //    isAbilityActive = true;
            
-              
-            return damage * 2;
-        }
 
-        else
-        {
-            return damage;
-        }
-            
+        //    if (currentTime > 0)
+        //    {
+        //        currentTime -= 1 * Time.deltaTime;
+        //        abilityDuration -= 1 * Time.deltaTime;
+        //    }
+        //    coolDownText.text = currentTime.ToString("0");
+
+
+        //    if (currentTime <= 0)
+        //    {
+        //        isAbilityActive = false;
+        //        CanIUseAbility = true;
+
+
+        //        if (abilityDuration <= 0)
+        //        {
+        //            Reset();
+        //            if (Input.GetKey(KeyCode.G))
+        //            {
+
+        //                CanIUseAbility = false;
+        //                isAbilityActive = true;
+
+
+        //            }
+        //            else
+        //            {
+        //                isAbilityActive = false;
+
+        //            }
+
+        //            isAbilityActive = false;
+
+        //            CanIUseAbility = true;
+        //        }
+        //        if (CanIUseAbility == false)
+        //        {
+        //            isAbilityActive = true;
+
+        //            CanIUseAbility = false;
+                    
+        //        }
+        //        else
+        //        {
+        //            isAbilityActive = false;
+
+        //        }
+        //    }
+        //}
+
+
+
+
     }
 
-    private void Reset()
+    IEnumerator Ability()
     {
-        currentTime = 30f;
-        abilityDuration = 5f;
+        CanIUseAbility=false;
+        isAbilityActive = true;
+        yield return new WaitForSeconds(abilityDuration);
+        isAbilityActive = false;
+        yield return new WaitForSeconds(5);
+        CanIUseAbility = true;
     }
+
+    //private void Reset()
+    //{
+    //    currentTime = 4f;
+    //    abilityDuration = 5f;
+    //}
 
 }

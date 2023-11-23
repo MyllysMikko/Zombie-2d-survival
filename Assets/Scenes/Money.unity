@@ -504,26 +504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e27a2504fd578045b8b15c11e0a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnim: {fileID: 0}
-  reloading: 0
-  clipText: {fileID: 0}
-  reserveText: {fileID: 0}
-  damage: 1
-  bulletSpread: 1
-  bulletsPerSecond: 0
-  shootDelay: 0.1
-  nextShotAt: 0
-  shotLenght: 0
-  bulletTrail: {fileID: 8579590539065061908, guid: d7792e23da298ae4e9b7426cb0a9150f, type: 3}
-  gunType: 1
-  maxClip: 100
-  currentClip: 10
-  maxReserve: 1000
-  currentReserve: 0
-  reloadTime: 0
   isAbilityActive: 0
   CanIUseAbility: 1
-  currentTime: 30
+  currentTime: 4
   abilityDuration: 5
   coolDownText: {fileID: 571783059}
 --- !u!1 &764699275
