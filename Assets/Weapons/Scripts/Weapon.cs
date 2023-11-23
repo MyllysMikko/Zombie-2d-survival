@@ -58,6 +58,12 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        PlayerInput();
+    }
+
+    public virtual void PlayerInput()
+    {
         switch (gunType)
         {
             case GunType.Semiautomatic:
@@ -85,7 +91,6 @@ public class Weapon : MonoBehaviour
                 StartCoroutine(Reload());
             }
         }
-
     }
 
     IEnumerator Reload()
