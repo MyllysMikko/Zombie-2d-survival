@@ -46,17 +46,23 @@ public class Weapon : MonoBehaviour
 
         if (gunType == GunType.automatic)
         {
-            playerAnim.SetInt(0);
+            playerAnim?.SetInt(0);
         }
         else
         {
-            playerAnim.SetInt(1);
+            playerAnim?.SetInt(1);
         }
     }
 
 
     // Update is called once per frame
     void Update()
+    {
+
+        PlayerInput();
+    }
+
+    public virtual void PlayerInput()
     {
         switch (gunType)
         {
@@ -85,13 +91,12 @@ public class Weapon : MonoBehaviour
                 StartCoroutine(Reload());
             }
         }
-
     }
 
     IEnumerator Reload()
     {
         reloading = true;
-        playerAnim.TriggerReload();
+        playerAnim?.TriggerReload();
         yield return new WaitForSeconds(reloadTime);
 
         int ammountToReload = maxClip - currentClip;
@@ -123,7 +128,7 @@ public class Weapon : MonoBehaviour
                 nextShotAt = Time.time + shootDelay;
                 UpdateAmmoHud();
 
-                playerAnim.TriggerShoot();
+                playerAnim?.TriggerShoot();
             }
         }
     }
