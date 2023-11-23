@@ -118796,6 +118796,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1766114737}
     - target: {fileID: 1241174371390798746, guid: a2e41d338ca6ea24b8a5c8b769c36218, type: 3}
+      propertyPath: playerAnim
+      value: 
+      objectReference: {fileID: 1400124661}
+    - target: {fileID: 1241174371390798746, guid: a2e41d338ca6ea24b8a5c8b769c36218, type: 3}
       propertyPath: reserveText
       value: 
       objectReference: {fileID: 499647200}
@@ -118891,6 +118895,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1700138250560355513, guid: a2e41d338ca6ea24b8a5c8b769c36218, type: 3}
   m_PrefabInstance: {fileID: 1400124656}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1400124661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1703036498481238293, guid: a2e41d338ca6ea24b8a5c8b769c36218, type: 3}
+  m_PrefabInstance: {fileID: 1400124656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692e5437d4ee40e49af03a19516e1d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1425068830 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5890124729400450670, guid: f6cb735005b100f45aef5f6ab193dd2f, type: 3}
