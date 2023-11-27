@@ -118300,7 +118300,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987748553}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.8299999, y: -0.01999998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -118364,7 +118364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1400124660}
-  cameraOffset: {x: 0, y: 0, z: 0}
+  cameraOffset: {x: 5, y: 5, z: 0}
+  edgePercentage: 0.2
+  cameraSpeed: 1
 --- !u!1001 &993290155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118548,7 +118550,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7bd22066c68890a4eb75f665ef9e7726, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.388
   m_Pitch: 1
   Loop: 1
