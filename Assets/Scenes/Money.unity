@@ -470,6 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 713424849}
   - component: {fileID: 713424850}
+  - component: {fileID: 713424851}
   m_Layer: 0
   m_Name: ShootPoint
   m_TagString: Untagged
@@ -506,9 +507,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAbilityActive: 0
   CanIUseAbility: 1
-  currentTime: 4
+  AbilityCoolDownTime: 0
   abilityDuration: 5
   coolDownText: {fileID: 571783059}
+--- !u!114 &713424851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713424848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a70cbe6cf2b5748838973eb85180af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnim: {fileID: 0}
+  reloading: 0
+  clipText: {fileID: 0}
+  reserveText: {fileID: 0}
+  damage: 1
+  bulletSpread: 0.1
+  bulletsPerSecond: 5
+  shootDelay: 0.1
+  nextShotAt: 0
+  shotLenght: 0
+  bulletTrail: {fileID: 8579590539065061908, guid: d7792e23da298ae4e9b7426cb0a9150f, type: 3}
+  gunType: 1
+  maxClip: 100
+  currentClip: 10
+  maxReserve: 1000
+  currentReserve: 0
+  reloadTime: 0
 --- !u!1 &764699275
 GameObject:
   m_ObjectHideFlags: 0

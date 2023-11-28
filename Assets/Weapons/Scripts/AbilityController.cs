@@ -11,8 +11,8 @@ public class abilityController : MonoBehaviour
     public bool isAbilityActive;
     public bool CanIUseAbility = true;
     [SerializeField] private float AbilityCoolDownTime = 0f;
-    private float startTime = 30f;
-    [SerializeField] private float abilityDuration = 5;  
+    private float startTime = 15f;
+    [SerializeField] private float abilityDuration = 5f;  
 
     [SerializeField]TextMeshProUGUI coolDownText;
 
@@ -30,18 +30,45 @@ public class abilityController : MonoBehaviour
             StartCoroutine(Ability());
         }
 
+
+
+        if(CanIUseAbility == false)
+        {
+            if(AbilityCoolDownTime > 0)
+            {
+                AbilityCoolDownTime -= 1 * Time.deltaTime;
+                abilityDuration -= 1 * Time.deltaTime;
+
+            }
+
+            if(abilityDuration <= 0)
+            {
+                isAbilityActive = false;
+
+                if (AbilityCoolDownTime <= 0)
+                {
+                    AbilityCoolDownTime = startTime;
+                    abilityDuration = 5f;
+                    
+                }
+            }
+
+
+        }    
+
+
         //if (Input.GetKey(KeyCode.G))
         //{
         //    CanIUseAbility = false;
         //    isAbilityActive = true;
-            
-            
+
+
         //}
 
         //if (CanIUseAbility == false)
         //{
         //    isAbilityActive = true;
-           
+
 
         //    if (currentTime > 0)
         //    {
@@ -83,7 +110,7 @@ public class abilityController : MonoBehaviour
         //            isAbilityActive = true;
 
         //            CanIUseAbility = false;
-                    
+
         //        }
         //        else
         //        {
@@ -100,18 +127,13 @@ public class abilityController : MonoBehaviour
 
     IEnumerator Ability()
     {
-        CanIUseAbility=false;
+        CanIUseAbility = false;
         isAbilityActive = true;
         yield return new WaitForSeconds(abilityDuration);
         isAbilityActive = false;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(AbilityCoolDownTime);
         CanIUseAbility = true;
     }
 
-    //private void Reset()
-    //{
-    //    currentTime = 4f;
-    //    abilityDuration = 5f;
-    //}
 
 }

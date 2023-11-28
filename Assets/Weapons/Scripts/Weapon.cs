@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] TextMeshProUGUI reserveText;
 
     [Header("Gun attributes")]
-    public int damage;
+    [SerializeField] int damage;
     [SerializeField] float bulletSpread;
     [SerializeField] int bulletsPerSecond;
     [SerializeField] float shootDelay;
@@ -175,9 +175,20 @@ public class Weapon : MonoBehaviour
 
 
     //Mikäli halutaan laskea vahinko eri tavalla, tämä voidana overrideta
-    public virtual int CalculateDamage()
+    public int CalculateDamage()
     {
-        return damage;
+        abilityController ability = GetComponent<abilityController>();
+
+        if (ability.isAbilityActive)
+        {
+            return damage * 2;
+        }
+        else
+        {
+            return damage;
+        }
+
+            
     }
 
     public void CalculateRateOfFire()
