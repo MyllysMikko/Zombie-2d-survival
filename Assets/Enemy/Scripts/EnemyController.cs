@@ -34,8 +34,7 @@ public class EnemyController : MonoBehaviour
     public AudioSource source;
     public AudioClip clip;
 
-
-    Quaternion enemyRotation;
+    [SerializeField] Animator anim;
 
 
     // Start is called before the first frame update
@@ -44,6 +43,7 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         attacking = false;
         currentSpeed = 0;
+        anim.SetBool("walking", true);
     }
 
     // Update is called once per frame
@@ -74,21 +74,25 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator Attack()
     {
+        anim.SetBool("walking", false);
         turnSpeed *= 10;
         attacking = true;
-        yield return new WaitForSeconds(attackDelay);
+        anim.SetTrigger("attack");
+        yield return new WaitForSeconds(0.7f);
 
-        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange + 0.05f)
         {
             player.TakeDamage(attackDamage);
-            source.PlayOneShot(clip);
         }
+
+
 
         turnSpeed = defaultTurnSpeed;
 
         yield return new WaitForSeconds(attackDelay);
 
         attacking = false;
+        anim.SetBool("walking", true);
     }
 
     void MoveForward()

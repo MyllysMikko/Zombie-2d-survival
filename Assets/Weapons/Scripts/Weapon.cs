@@ -7,6 +7,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] PlayerAnimationController playerAnim;
+    [SerializeField] abilityController ability;
 
     public bool reloading;
 
@@ -154,6 +155,10 @@ public class Weapon : MonoBehaviour
             {
                 enemy.TakeDamage(CalculateDamage());
 
+                Vector3 enemyDir = (transform.position - enemy.transform.position).normalized;
+
+                enemy.transform.position -= enemyDir * 0.1f;
+
                 Debug.Log("Hit!");
             }
 
@@ -177,9 +182,9 @@ public class Weapon : MonoBehaviour
     //Mikäli halutaan laskea vahinko eri tavalla, tämä voidana overrideta
     public int CalculateDamage()
     {
-        abilityController ability = GetComponent<abilityController>();
 
-        if (ability.isAbilityActive)
+
+        if (ability != null && ability.isAbilityActive)
         {
             return damage * 2;
         }
