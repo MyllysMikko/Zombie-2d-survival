@@ -6,10 +6,13 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     //[SerializeField] GameObject player;
+    [SerializeField] Rigidbody2D rb;
     [SerializeField] PlayerController player;
 
     [Header("Movement")]
     [SerializeField] float moveSpeed;
+    [SerializeField] float currentSpeed;
+    [SerializeField] float acceleration = 1;
     [SerializeField] float turnSpeed;
 
     //Pidet‰‰n turnSpeed tallessa.
@@ -32,18 +35,21 @@ public class EnemyController : MonoBehaviour
     public AudioClip clip;
 
 
+    Quaternion enemyRotation;
+
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         attacking = false;
-
+        currentSpeed = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        TurnTowardPlayer();
+        //TurnTowardPlayer();
         MoveForward();
     
         if (Vector3.Distance(transform.position, player.transform.position) <= attackRange && !attacking)
@@ -51,6 +57,19 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(Attack());
         }
 
+    }
+
+    void FixedUpdate()
+    {
+        if (!attacking)
+        {
+            currentSpeed += acceleration * Time.deltaTime;
+            currentSpeed = Mathf.Clamp(currentSpeed, 0, moveSpeed);
+            //transform.position += transform.right * currentSpeed * Time.deltaTime;
+            rb.MovePosition(transform.position += transform.right * currentSpeed * Time.deltaTime);
+        }
+
+        TurnTowardPlayer(false);
     }
 
     IEnumerator Attack()
@@ -74,13 +93,15 @@ public class EnemyController : MonoBehaviour
 
     void MoveForward()
     {
-        if (!attacking)
-        {
-            transform.position += transform.right * moveSpeed * Time.deltaTime;
-        }
+
     }
 
-    void TurnTowardPlayer()
+    /// <summary>
+    /// K‰‰nt‰‰ Zombia katsomaan pelaajaa kohti.
+    /// Boolean hallitsee tapahtuuko t‰m‰ heti vai ajan mukana
+    /// </summary>
+    /// <param name="instantly"></param>
+    void TurnTowardPlayer(bool instantly)
     {
 
         Vector3 toTarget = player.transform.position - transform.position;
@@ -88,22 +109,23 @@ public class EnemyController : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, rotatedToTarget);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-    }
+        if (!instantly)
+        {
+            rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+        }
+        else
+        {
+            transform.rotation = targetRotation;
+        }
 
-    public void SetStats(int hp, float moveSpeed, int attackDamage)
-    {
-        this.hp = hp;
-        this.moveSpeed = moveSpeed;
-        this.attackDamage = attackDamage;
-
-        attacking = false;
-        turnSpeed = defaultTurnSpeed;
+        
     }
 
     public void TakeDamage(int damage)
     {
         hp -= damage;
+        currentSpeed = 0;
+        Debug.Log(currentSpeed);
 
         if (hp <= 0)
         {
@@ -133,5 +155,37 @@ public class EnemyController : MonoBehaviour
             coin.SetActive(true);
             Destroy(coin, 5f);
         }
+    }
+
+    public void SetStats(int hp, float moveSpeed, int attackDamage)
+    {
+        this.hp = hp;
+        this.moveSpeed = moveSpeed;
+        this.attackDamage = attackDamage;
+
+        attacking = false;
+        turnSpeed = defaultTurnSpeed;
+    }
+
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TurnTowardPlayer(true);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+
+        TurnTowardPlayer(true);
+
+        //if (collision.collider.CompareTag("Enemy"))
+        //{
+        //    Debug.Log("Separate");
+        //    Vector3 dir = (transform.position - collision.transform.position).normalized;
+        //    transform.position += dir * 0.1f;
+        //    collision.transform.position -= dir * 0.01f;
+        //}
+
     }
 }

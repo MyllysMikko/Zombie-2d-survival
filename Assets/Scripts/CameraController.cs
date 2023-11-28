@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
         float xMultiplier = Mathf.Lerp(-1f, 1f, Mathf.InverseLerp(edgePercentage, 1 - edgePercentage, mouseX));
         float yMultiplier = Mathf.Lerp(-1, 1f, Mathf.InverseLerp(edgePercentage, 1 - edgePercentage, mouseY));
 
-        Debug.Log($"{xMultiplier}, {yMultiplier}");
+        //Debug.Log($"{xMultiplier}, {yMultiplier}");
 
         Vector3 cameraPos = new Vector3(player.position.x, player.position.y, transform.position.z);
         cameraPos.x += cameraOffset.x * xMultiplier;

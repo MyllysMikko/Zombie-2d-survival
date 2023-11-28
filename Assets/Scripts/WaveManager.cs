@@ -24,6 +24,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] int zombiesKilled;
 
     [Header("Zombie")]
+    [SerializeField] int baseZombieAmmount;
+    [SerializeField] int zombiesPerWave;
     [SerializeField] float movementSpeed;
     [SerializeField] int wavesForIncrease;
     [SerializeField] int baseHP;
@@ -82,7 +84,7 @@ public class WaveManager : MonoBehaviour
     {
         waveNumber++;
         ongoingWave = true;
-        zombieAmmount = 10 * waveNumber;
+        zombieAmmount = baseZombieAmmount + zombiesPerWave * waveNumber;
         zombiesKilled = 0;
         for (int i = 0; i < zombieAmmount; i++)
         {
@@ -123,6 +125,7 @@ public class WaveManager : MonoBehaviour
             EnemyController enemyController = zombie.GetComponent<EnemyController>();
             SetZombieStats(enemyController);
             enemyController.Died += OnZombieDead;
+            zombie.SetActive(true);
             zombies.Add(zombie);
             
         }
