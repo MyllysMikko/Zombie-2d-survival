@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     //[SerializeField] GameObject player;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] PlayerController player;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
     [Header("Movement")]
     [SerializeField] float moveSpeed;
@@ -169,6 +170,12 @@ public class EnemyController : MonoBehaviour
 
         attacking = false;
         turnSpeed = defaultTurnSpeed;
+    }
+
+    public void SetLayerOrder(int index)
+    {
+        spriteRenderer.sortingLayerName = "Enemy";
+        spriteRenderer.sortingOrder = index;
     }
 
 

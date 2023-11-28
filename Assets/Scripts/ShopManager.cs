@@ -15,6 +15,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] prices;
 
     bool inRange;
+    public static bool shopActive;
 
     [Header("Stat increases")]
     [SerializeField] int hpIncrease;
@@ -27,15 +28,24 @@ public class ShopManager : MonoBehaviour
     {
         UpdateShopDisplay();
         inRange = false;
+        shopActive = false;
         shopCanvas.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (inRange && Input.GetKeyDown(KeyCode.E))
+
+        if (inRange && !WaveManager.ongoingWave && Input.GetKeyDown(KeyCode.E))
         {
-            shopCanvas.SetActive(!shopCanvas.activeInHierarchy);
+            shopActive = !shopActive;
+            shopCanvas.SetActive(shopActive);
+        }
+
+        if (shopActive && WaveManager.ongoingWave)
+        {
+            shopActive = false;
+            shopCanvas.SetActive(shopActive);
         }
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -112,7 +122,8 @@ public class ShopManager : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inRange = false;
-            shopCanvas.SetActive(false);
+            shopActive = false;
+            shopCanvas.SetActive(shopActive);
         }
     }
 

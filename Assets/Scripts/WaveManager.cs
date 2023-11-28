@@ -19,7 +19,7 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] int waveNumber;
     [SerializeField] float timeBetweenWaves;
-    [SerializeField] bool ongoingWave;
+    public static bool ongoingWave;
     [SerializeField] int zombieAmmount;
     [SerializeField] int zombiesKilled;
 
@@ -38,7 +38,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] List<GameObject> zombies = new List<GameObject>();
     [SerializeField] Transform[] spawnPoints;
 
-
+    int layerOrder = 0;
 
     
 
@@ -123,7 +123,11 @@ public class WaveManager : MonoBehaviour
         {
             GameObject zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
             EnemyController enemyController = zombie.GetComponent<EnemyController>();
+
             SetZombieStats(enemyController);
+            enemyController.SetLayerOrder(layerOrder);
+            layerOrder++;
+
             enemyController.Died += OnZombieDead;
             zombie.SetActive(true);
             zombies.Add(zombie);

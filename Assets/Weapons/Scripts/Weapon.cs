@@ -119,7 +119,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void Shoot()
     {
-        if (!reloading)
+        if (!reloading && !ShopManager.shopActive)
         {
             if (Time.time >= nextShotAt && currentClip > 0)
             {
