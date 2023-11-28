@@ -166,15 +166,29 @@ public class Weapon : MonoBehaviour
 
     public void UpdateAmmoHud()
     {
-        clipText.text = $"{currentClip} / {maxClip}";
-        reserveText.text = currentReserve.ToString();
+        if (clipText != null && reserveText != null)
+        {
+            clipText.text = $"{currentClip} / {maxClip}";
+            reserveText.text = currentReserve.ToString();
+        }
     }
 
 
     //Mikäli halutaan laskea vahinko eri tavalla, tämä voidana overrideta
-    public virtual int CalculateDamage()
+    public int CalculateDamage()
     {
-        return damage;
+        abilityController ability = GetComponent<abilityController>();
+
+        if (ability.isAbilityActive)
+        {
+            return damage * 2;
+        }
+        else
+        {
+            return damage;
+        }
+
+            
     }
 
     public void CalculateRateOfFire()
