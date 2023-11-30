@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] PlayerAnimationController playerAnim;
     [SerializeField] abilityController ability;
+    [SerializeField] WeaponAudioManager audioManager;
+
 
     public bool reloading;
 
@@ -97,6 +99,7 @@ public class Weapon : MonoBehaviour
     IEnumerator Reload()
     {
         reloading = true;
+        audioManager.Reload(gunType);
         playerAnim?.TriggerReload();
         yield return new WaitForSeconds(reloadTime);
 
@@ -128,6 +131,7 @@ public class Weapon : MonoBehaviour
                 currentClip--;
                 nextShotAt = Time.time + shootDelay;
                 UpdateAmmoHud();
+                audioManager.Shoot();
 
                 playerAnim?.TriggerShoot();
             }
@@ -228,7 +232,7 @@ public class Weapon : MonoBehaviour
         currentReserve = maxReserve;
     }
 
-    enum GunType
+    public enum GunType
     {
         Semiautomatic,
         automatic
