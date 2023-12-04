@@ -40,8 +40,9 @@ public class abilityController : MonoBehaviour
                 abilityDuration -= 1 * Time.deltaTime;
 
             }
+            coolDownText.text = AbilityCoolDownTime.ToString("0");
 
-            if(abilityDuration <= 0)
+            if (abilityDuration <= 0)
             {
                 isAbilityActive = false;
 
@@ -52,7 +53,7 @@ public class abilityController : MonoBehaviour
                     
                 }
             }
-
+            
 
         }    
 
