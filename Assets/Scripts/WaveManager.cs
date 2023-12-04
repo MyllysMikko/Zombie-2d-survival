@@ -10,6 +10,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] PlayerController player;
     [SerializeField] GameObject deadScreen;
     [SerializeField] GameObject hud;
+    [SerializeField] EnemyAudioManager enemyAudio;
 
     [SerializeField] Score score;
 
@@ -27,9 +28,10 @@ public class WaveManager : MonoBehaviour
     [SerializeField] int baseZombieAmmount;
     [SerializeField] int zombiesPerWave;
     [SerializeField] float movementSpeed;
+    [SerializeField] float speedIncrease;
     [SerializeField] int wavesForIncrease;
     [SerializeField] int baseHP;
-    [SerializeField] int HPIncrease;
+    [SerializeField] float HPIncrease;
     [SerializeField] int baseDamage;
     [SerializeField] int damageIncrease;
 
@@ -129,6 +131,9 @@ public class WaveManager : MonoBehaviour
             layerOrder++;
 
             enemyController.Died += OnZombieDead;
+            enemyController.Died += enemyAudio.OnDeath;
+            enemyController.EnemyHurt += enemyAudio.OnHurt;
+            enemyController.EnemyAttack += enemyAudio.OnAttack;
             zombie.SetActive(true);
             zombies.Add(zombie);
             
@@ -139,10 +144,13 @@ public class WaveManager : MonoBehaviour
     {
         int multiplier = waveNumber / wavesForIncrease;
 
-        int hp = baseHP + HPIncrease * multiplier;
-        int attackDamage = baseDamage + damageIncrease * multiplier;
+        //int hp = baseHP + HPIncrease * multiplier;
+        int hp = (int)(baseHP + baseHP * 0.05f * waveNumber);
+        int attackDamage = baseDamage + (damageIncrease * waveNumber);
 
-        zombie.SetStats(hp, movementSpeed, attackDamage);
+        float speed = movementSpeed + (speedIncrease * waveNumber);
+
+        zombie.SetStats(hp, speed, attackDamage);
     }
 
     void OnZombieDead(System.Object sender, EventArgs e)

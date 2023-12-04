@@ -24,7 +24,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] int hp;
     public GameObject CoinModel;
 
-    public EventHandler Died;
 
     [Header("Attack")]
     [SerializeField] bool attacking;
@@ -32,10 +31,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float attackDelay;
     [SerializeField] int attackDamage;
 
+
     public AudioSource source;
     public AudioClip clip;
 
     [SerializeField] Animator anim;
+
+    public EventHandler Died;
+    public EventHandler EnemyHurt;
+    public EventHandler EnemyAttack;
 
 
     // Start is called before the first frame update
@@ -75,10 +79,12 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator Attack()
     {
+
         anim.SetBool("walking", false);
         turnSpeed *= 10;
         attacking = true;
         anim.SetTrigger("attack");
+        EnemyAttack.Invoke(this, EventArgs.Empty);
         yield return new WaitForSeconds(0.7f);
 
         if (Vector3.Distance(transform.position, player.transform.position) <= attackRange + 0.05f)
@@ -128,6 +134,7 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        EnemyHurt?.Invoke(this, EventArgs.Empty);
         hp -= damage;
         currentSpeed = 0;
         Debug.Log(currentSpeed);
@@ -141,12 +148,8 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
-        if (Died != null)
-        {
 
-            Died.Invoke(this, EventArgs.Empty);
-
-        }
+        Died?.Invoke(this, EventArgs.Empty);
         gameObject.SetActive(false);
         DropCoin();
     }
@@ -158,14 +161,16 @@ public class EnemyController : MonoBehaviour
             Vector2 position = transform.position;
             GameObject coin = Instantiate(CoinModel, position + new Vector2(0.0f, 1.0f), Quaternion.identity);
             coin.SetActive(true);
-            Destroy(coin, 5f);
+            Destroy(coin, 10f);
         }
     }
 
     public void SetStats(int hp, float moveSpeed, int attackDamage)
     {
+        anim.SetBool("walking", true);
         this.hp = hp;
         this.moveSpeed = moveSpeed;
+        acceleration = moveSpeed / 5;
         this.attackDamage = attackDamage;
 
         attacking = false;
