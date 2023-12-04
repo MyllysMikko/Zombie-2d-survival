@@ -50,7 +50,7 @@ public class abilityController : MonoBehaviour
                 {
                     AbilityCoolDownTime = startTime;
                     abilityDuration = 5f;
-                    
+                    coolDownText.text = AbilityCoolDownTime.ToString("You can activate ability now");
                 }
             }
             
