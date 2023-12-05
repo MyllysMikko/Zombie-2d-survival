@@ -6,6 +6,7 @@ public class WeaponAudioManager : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip shoot;
+    [SerializeField] AudioClip shootAbility;
     [SerializeField] AudioClip rifleReload;
     [SerializeField] AudioClip handgunReload;
 
@@ -24,11 +25,19 @@ public class WeaponAudioManager : MonoBehaviour
         
     }
 
-    public void Shoot()
+    public void Shoot(bool ability)
     {
         if (Time.time >= nextShot)
         {
-            audioSource.PlayOneShot(shoot);
+            if (ability)
+            {
+                audioSource.PlayOneShot(shootAbility);
+            }
+            else
+            {
+                audioSource.PlayOneShot(shoot);
+            }
+
             nextShot = Time.time + delayBetweenShots;
         }
 

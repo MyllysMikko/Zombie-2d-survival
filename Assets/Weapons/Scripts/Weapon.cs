@@ -131,7 +131,7 @@ public class Weapon : MonoBehaviour
                 currentClip--;
                 nextShotAt = Time.time + shootDelay;
                 UpdateAmmoHud();
-                audioManager.Shoot();
+                audioManager.Shoot(ability.isAbilityActive);
 
                 playerAnim?.TriggerShoot();
             }
@@ -161,7 +161,7 @@ public class Weapon : MonoBehaviour
 
                 Vector3 enemyDir = (transform.position - enemy.transform.position).normalized;
 
-                enemy.transform.position -= enemyDir * 0.1f;
+                enemy.transform.position -= enemyDir * 0.2f;
 
                 Debug.Log("Hit!");
             }
@@ -190,6 +190,7 @@ public class Weapon : MonoBehaviour
 
         if (ability != null && ability.isAbilityActive)
         {
+            Debug.Log("Double Damage");
             return damage * 2;
         }
         else

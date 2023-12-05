@@ -136,7 +136,7 @@ public class EnemyController : MonoBehaviour
     {
         EnemyHurt?.Invoke(this, EventArgs.Empty);
         hp -= damage;
-        currentSpeed = 0;
+        currentSpeed = moveSpeed * 0.1f;
         Debug.Log(currentSpeed);
 
         if (hp <= 0)

@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI hpText;
 
+    [SerializeField] AudioSource audiosource;
+    [SerializeField] AudioClip hurt;
+
     public EventHandler playerDied;
 
     [SerializeField] int currentHP;
@@ -119,16 +122,21 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHP -= damage;
-        UpdateHpText();
-        if (currentHP <= 0)
+        if (currentHP > 0)
         {
-            gameObject.SetActive(false);
-            if (playerDied != null)
+            audiosource.PlayOneShot(hurt);
+            currentHP -= damage;
+            UpdateHpText();
+            if (currentHP <= 0)
             {
-                playerDied.Invoke(this, EventArgs.Empty);
+                gameObject.SetActive(false);
+                if (playerDied != null)
+                {
+                    playerDied.Invoke(this, EventArgs.Empty);
+                }
             }
         }
+
     }
 
     void UpdateHpText()

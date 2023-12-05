@@ -20,11 +20,6 @@ public class EnemyAudioManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void OnHurt(object sender, EventArgs e)
     {
