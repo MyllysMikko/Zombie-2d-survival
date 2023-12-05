@@ -131,7 +131,7 @@ public class Weapon : MonoBehaviour
                 currentClip--;
                 nextShotAt = Time.time + shootDelay;
                 UpdateAmmoHud();
-                audioManager.Shoot();
+                audioManager.Shoot(ability.isAbilityActive);
 
                 playerAnim?.TriggerShoot();
             }
