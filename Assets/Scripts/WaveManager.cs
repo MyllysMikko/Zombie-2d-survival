@@ -63,6 +63,11 @@ public class WaveManager : MonoBehaviour
             StartCoroutine(StartNextWave());
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GoToMainMenu();
+        }
+
 
     }
 
@@ -145,7 +150,7 @@ public class WaveManager : MonoBehaviour
         int multiplier = waveNumber / wavesForIncrease;
 
         //int hp = baseHP + HPIncrease * multiplier;
-        int hp = (int)(baseHP + baseHP * 0.05f * waveNumber);
+        int hp = (int)(baseHP + baseHP * HPIncrease * waveNumber);
         int attackDamage = baseDamage + (damageIncrease * waveNumber);
 
         float speed = movementSpeed + (speedIncrease * waveNumber);
@@ -179,6 +184,11 @@ public class WaveManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     void UpdateWaveText()
     {
         waveText.text = $"Wave {waveNumber}";
@@ -196,4 +206,5 @@ public class WaveManager : MonoBehaviour
 
         return spawnPosition;
     }
+
 }
