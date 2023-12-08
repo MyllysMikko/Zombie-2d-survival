@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI deadScoreText;
+
     [SerializeField] PlayerController player;
     [SerializeField] GameObject deadScreen;
     [SerializeField] GameObject hud;
@@ -53,15 +55,17 @@ public class WaveManager : MonoBehaviour
         timerText = timer.GetComponent<TextMeshProUGUI>();
         timer.SetActive(false);
         UpdateWaveText();
+
+        StartCoroutine(StartNextWave());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            StartCoroutine(StartNextWave());
-        }
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    StartCoroutine(StartNextWave());
+        //}
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -167,6 +171,7 @@ public class WaveManager : MonoBehaviour
             score.AddScore(100);
             Debug.Log("Wave over!");
             ongoingWave = false;
+
             StartCoroutine(StartNextWave());
         }
     }
@@ -176,6 +181,8 @@ public class WaveManager : MonoBehaviour
         //TODO: jos j‰‰ aikaa teh‰, niin tallenna t‰ss‰ score.
         deadScreen.SetActive(true);
         hud.SetActive(false);
+        deadScoreText.text = score.score.ToString();
+        Debug.Log(score.score.ToString());
 
     }
 

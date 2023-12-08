@@ -9,7 +9,7 @@ public class Score : MonoBehaviour
 
     public static int moneyAmount = 0;
 
-    [SerializeField] int score;
+    public int score { get; private set; }
 
     [SerializeField] TextMeshProUGUI moneyText;
 
