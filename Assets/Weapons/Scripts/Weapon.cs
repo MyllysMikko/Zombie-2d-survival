@@ -33,6 +33,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] int currentReserve;
     [SerializeField] float reloadTime;
 
+    [SerializeField] LayerMask dontShoot;
+
 
     // Start is called before the first frame update
     void Start()
@@ -146,7 +148,7 @@ public class Weapon : MonoBehaviour
 
         Vector3 finalDirection = deviation * transform.right;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, finalDirection);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, finalDirection, 10000, ~dontShoot);
         GameObject trail = Instantiate(bulletTrail, transform.position, Quaternion.identity);
 
         if (hit.collider != null)
