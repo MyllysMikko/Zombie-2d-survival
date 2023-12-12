@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Coin
-  - Obstacle
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,7 +13,7 @@ TagManager:
   - 
   - Water
   - UI
-  - DontShoot
+  - 
   - 
   - 
   - 
@@ -44,9 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Enemy
-    uniqueID: 3148620237
+  - name: UI
+    uniqueID: 2717363643
     locked: 0
-  - name: Tree
-    uniqueID: 1315246953
+  - name: UI
+    uniqueID: 2361490707
     locked: 0

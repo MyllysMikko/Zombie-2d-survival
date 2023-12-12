@@ -28,12 +28,12 @@ public class Score : MonoBehaviour
 
     void Update()
     {
-        moneyText.text = "$: " + moneyAmount;    
+        moneyText.text = " " + moneyAmount;    
     }
 
     void UpdateScore()
     {
-        scoreText.text = $"Score: {score}";
+        scoreText.text = $"{score}";
     }
 
     public void AddScore(int amount)

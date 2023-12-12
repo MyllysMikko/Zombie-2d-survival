@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
     {
         if (hpText != null)
         {
-            hpText.text = $"HP: {currentHP} / {maxHP}";
+            hpText.text = $" {currentHP} / {maxHP}";
         }
     }
 

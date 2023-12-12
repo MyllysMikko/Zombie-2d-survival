@@ -30,7 +30,7 @@ public class abilityController : MonoBehaviour
             StartCoroutine(Ability());
         }
 
-        coolDownText.text = AbilityCoolDownTime.ToString("You can activate ability by pressng G");
+        coolDownText.text = AbilityCoolDownTime.ToString("Press G");
 
         if (CanIUseAbility == false)
         {
@@ -50,7 +50,7 @@ public class abilityController : MonoBehaviour
                 {
                     AbilityCoolDownTime = startTime;
                     abilityDuration = 5f;
-                    coolDownText.text = AbilityCoolDownTime.ToString("You can activate ability by pressng G");
+                    coolDownText.text = AbilityCoolDownTime.ToString("Press G");
                 }
             }
             
