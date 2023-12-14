@@ -163,7 +163,18 @@ public class Weapon : MonoBehaviour
 
                 Vector3 enemyDir = (transform.position - enemy.transform.position).normalized;
 
-                enemy.transform.position -= enemyDir * 0.2f;
+                float knockback;
+
+                if (ability.isAbilityActive)
+                {
+                    knockback = 0.4f;
+                }
+                else
+                {
+                    knockback = 0.2f;
+                }
+
+                enemy.transform.position -= enemyDir * knockback;
 
                 Debug.Log("Hit!");
             }

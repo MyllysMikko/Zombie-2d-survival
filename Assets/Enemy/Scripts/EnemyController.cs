@@ -159,7 +159,7 @@ public class EnemyController : MonoBehaviour
         if (CoinModel != null)
         {
             Vector2 position = transform.position;
-            GameObject coin = Instantiate(CoinModel, position + new Vector2(0.0f, 1.0f), Quaternion.identity);
+            GameObject coin = Instantiate(CoinModel, position, Quaternion.identity);
             coin.SetActive(true);
             Destroy(coin, 10f);
         }
